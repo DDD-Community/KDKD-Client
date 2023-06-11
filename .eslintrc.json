@@ -1,10 +1,10 @@
 {
   "env": { "browser": true, "es2020": true },
   "extends": [
-    "plugin:@typescript-eslint/recommended",
     "airbnb",
     "airbnb/hooks",
-    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended",
+    // "airbnb-typescript",
     // "eslint:recommended",
     // "plugin:react-hooks/recommended",
   ],

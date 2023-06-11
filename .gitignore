@@ -24,9 +24,9 @@ dist-ssr
 
 # Yarn Berry Zero-Install
 .yarn/*
-.pnp.*
+!.yarn/cache
 !.yarn/patches
-!.yarn/releases
 !.yarn/plugins
+!.yarn/releases
 !.yarn/sdks
 !.yarn/versions

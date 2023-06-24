@@ -1,7 +1,7 @@
-import type {PluginOption} from 'vite';
-import {defineConfig} from 'vite';
+import type { PluginOption } from 'vite';
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import {resolve} from 'path';
+import { resolve } from 'path';
 import * as fs from 'fs';
 import foo from './manifest';
 

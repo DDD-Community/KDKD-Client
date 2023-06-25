@@ -1,4 +1,4 @@
-const manifest: chrome.runtime.ManifestV3 = {
+const manifest = {
   metadata: {
     name: 'React Vite Extension',
     description: 'React Vite Extension',

@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import * as fs from 'fs';
-import manifest from './manifest.ts';
+import manifest from './manifest';
 
 const outDir = resolve(__dirname, 'dist');
 
@@ -25,4 +25,7 @@ function buildManifest(): PluginOption {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), buildManifest()],
+  build: {
+    rollupOptions: {},
+  },
 });

@@ -31,6 +31,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:11.11.1"],\
             ["@emotion/styled", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:11.11.0"],\
             ["@radix-ui/primitive", "npm:1.0.1"],\
+            ["@types/babel__core", "npm:7.20.1"],\
             ["@types/chrome", "npm:0.0.237"],\
             ["@types/node", "npm:20.3.1"],\
             ["@types/react", "npm:18.2.11"],\
@@ -1015,6 +1016,51 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@tootallnate-once-npm-2.0.0-e36cf4f140-ad87447820.zip/node_modules/@tootallnate/once/",\
           "packageDependencies": [\
             ["@tootallnate/once", "npm:2.0.0"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/babel__core", [\
+        ["npm:7.20.1", {\
+          "packageLocation": "./.yarn/cache/@types-babel__core-npm-7.20.1-f44761b6b6-9fcd9691a3.zip/node_modules/@types/babel__core/",\
+          "packageDependencies": [\
+            ["@types/babel__core", "npm:7.20.1"],\
+            ["@babel/parser", "npm:7.22.5"],\
+            ["@babel/types", "npm:7.22.5"],\
+            ["@types/babel__generator", "npm:7.6.4"],\
+            ["@types/babel__template", "npm:7.4.1"],\
+            ["@types/babel__traverse", "npm:7.20.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/babel__generator", [\
+        ["npm:7.6.4", {\
+          "packageLocation": "./.yarn/cache/@types-babel__generator-npm-7.6.4-03e776f956-20effbbb5f.zip/node_modules/@types/babel__generator/",\
+          "packageDependencies": [\
+            ["@types/babel__generator", "npm:7.6.4"],\
+            ["@babel/types", "npm:7.22.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/babel__template", [\
+        ["npm:7.4.1", {\
+          "packageLocation": "./.yarn/cache/@types-babel__template-npm-7.4.1-fe1db49e53-649fe8b42c.zip/node_modules/@types/babel__template/",\
+          "packageDependencies": [\
+            ["@types/babel__template", "npm:7.4.1"],\
+            ["@babel/parser", "npm:7.22.5"],\
+            ["@babel/types", "npm:7.22.5"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["@types/babel__traverse", [\
+        ["npm:7.20.1", {\
+          "packageLocation": "./.yarn/cache/@types-babel__traverse-npm-7.20.1-e1e93d4b3f-58341e23c6.zip/node_modules/@types/babel__traverse/",\
+          "packageDependencies": [\
+            ["@types/babel__traverse", "npm:7.20.1"],\
+            ["@babel/types", "npm:7.22.5"]\
           ],\
           "linkType": "HARD"\
         }]\
@@ -3648,6 +3694,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@emotion/react", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:11.11.1"],\
             ["@emotion/styled", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:11.11.0"],\
             ["@radix-ui/primitive", "npm:1.0.1"],\
+            ["@types/babel__core", "npm:7.20.1"],\
             ["@types/chrome", "npm:0.0.237"],\
             ["@types/node", "npm:20.3.1"],\
             ["@types/react", "npm:18.2.11"],\

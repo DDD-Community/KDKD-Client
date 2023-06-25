@@ -4,19 +4,33 @@
     "es2020": true
   },
   "extends": [
+    "plugin:prettier/recommended",
+    "plugin:@typescript-eslint/recommended",
     "airbnb",
-    "airbnb/hooks",
-    "plugin:@typescript-eslint/recommended"
+    "airbnb/hooks"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    "project": [
+      "./tsconfig.json"
+    ]
   },
   "plugins": [
     "@typescript-eslint"
   ],
   "rules": {
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".tsx"] }]
+    "react/jsx-one-expression-per-line": 0,
+    "react/react-in-jsx-scope": 0,
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    ]
   }
 }

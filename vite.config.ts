@@ -11,10 +11,7 @@ function buildManifest(): PluginOption {
   function make() {
     const manifestPath = resolve(outDir, 'manifest.json');
 
-    fs.writeFileSync(
-      manifestPath,
-      JSON.stringify(Object.values(manifest)[0]),
-    );
+    fs.writeFileSync(manifestPath, JSON.stringify(Object.values(manifest)[0]));
   }
 
   return {
@@ -28,4 +25,7 @@ function buildManifest(): PluginOption {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), buildManifest()],
+  build: {
+    rollupOptions: {},
+  },
 });

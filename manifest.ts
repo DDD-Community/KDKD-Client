@@ -6,12 +6,8 @@ const manifest: chrome.runtime.ManifestV3 = {
     manifest_version: 3,
     content_scripts: [
       {
-        matches: [
-          '<all_urls>',
-        ],
-        js: [
-          'content.js',
-        ],
+        matches: ['<all_urls>'],
+        js: ['content.js'],
       },
     ],
     action: {

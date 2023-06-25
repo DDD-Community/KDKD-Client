@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import * as fs from 'fs';
-import manifest from './manifest';
+import manifest from './manifest.ts';
 
 const outDir = resolve(__dirname, 'dist');
 
@@ -11,10 +11,7 @@ function buildManifest(): PluginOption {
   function make() {
     const manifestPath = resolve(outDir, 'manifest.json');
 
-    fs.writeFileSync(
-      manifestPath,
-      JSON.stringify(Object.values(manifest)[0]),
-    );
+    fs.writeFileSync(manifestPath, JSON.stringify(Object.values(manifest)[0]));
   }
 
   return {

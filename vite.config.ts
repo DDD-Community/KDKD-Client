@@ -22,7 +22,31 @@ function buildManifest(): PluginOption {
   };
 }
 
+function buildExtensionHtml(): PluginOption {
+  function make() {
+    const htmlFilePath = resolve(__dirname, 'extension.html');
+    const htmlContent = fs.readFileSync(htmlFilePath, 'utf-8');
+    console.log('htmlContent', htmlContent)
+    const htmlPath = resolve(outDir, 'extension.html');
+    fs.writeFileSync(htmlPath, htmlContent);
+  }
+  return {
+    name: 'make-extension-html',
+    generateBundle() {
+      make();
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), buildManifest()],
+  plugins: [react(), buildManifest(), buildExtensionHtml()],
+  build: {
+    rollupOptions: {
+      input: {
+       index: resolve(__dirname, 'index.html'),
+       extension: resolve(__dirname, 'extension.html'),
+      }
+    }
+  }
 });

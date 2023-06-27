@@ -25,7 +25,4 @@ function buildManifest(): PluginOption {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), buildManifest()],
-  build: {
-    rollupOptions: {},
-  },
 });

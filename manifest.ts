@@ -5,7 +5,7 @@ const manifest = {
     version: '0.0.1',
     manifest_version: 3,
     action: {
-      default_popup: 'index.html',
+      default_popup: 'extension.html',
     },
   },
 };

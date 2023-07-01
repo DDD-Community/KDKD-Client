@@ -21,8 +21,8 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.AUTO_TOKEN_GITHUB }}
         with:
           source-directory: 'output'
-          destination-github-username: 'DDD-Community'
-          destination-repository-name: 'KDKD-Client'
+          destination-github-username: 'KDKD-common'
+          destination-repository-name: 'client'
           user-email: ${{ secrets.OFFICIAL_ACCOUNT_EMAIL }}
           commit-message: ${{ github.event.commits[0].message }}
           target-branch: main

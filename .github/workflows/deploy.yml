@@ -14,7 +14,18 @@ jobs:
         run: apk add ruby && gem install mustache
       - name: creates output
         run: sh ./build.sh
-      - name: Pushes to another repository
+      - name: Setup SSH Keys and known_hosts
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: |
+          mkdir -p ~/.ssh
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-add - <<< "${{ secrets.SSH_PRIVATE_KEY }}"
+      - name: Some task that fetches dependencies
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+        run: ./fetch-deps.sh
+      - name: Pushes to anothzer repository
         id: push_directory
         uses: cpina/github-action-push-to-another-repository@main
         env:

@@ -1,0 +1,1 @@
+import{c as t,j as e,R as i}from"./client-18074b33.js";t.createRoot(document.getElementById("extension")).render(e.jsx(i.StrictMode,{children:e.jsx("div",{children:e.jsx("h2",{children:"This is Extension!!"})})}));

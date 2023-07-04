@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import {ColorPalette} from "./components/common/ColorPalette";
+import {ColorPalette} from "./styles/ColorPalette";
 
 function App() {
   const [count, setCount] = useState(0);

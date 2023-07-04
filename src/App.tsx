@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import {ColorPalette} from "./components/common/ColorPalette";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -6,7 +7,7 @@ function App() {
   return (
     <>
       <h1>Vite + React?</h1>
-      <div className="card">
+      <div className="card" style={{ color: ColorPalette.blue["200"] }}>
         <button type="button" onClick={() => setCount((prev) => prev + 1)}>
           count is
           {count}

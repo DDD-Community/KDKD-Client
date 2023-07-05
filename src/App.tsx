@@ -1,5 +1,7 @@
 import HStack from "./components/common/Stack/HStack";
 import VStack from "./components/common/Stack/VStack";
+import Button from "./components/common/Button/Button";
+
 
 function App() {
   return (
@@ -22,6 +24,11 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <Button theme="primary">저장</Button>
+      <Button theme="secondary">취소</Button>
+      <Button theme="danger">위험</Button>
+      <Button theme="outline">새 카테고리</Button>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import HStack from "./components/common/Stack/HStack";
 import VStack from "./components/common/Stack/VStack";
+import { Button } from "@/components/ui/button";
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
+
+      <Button>Button</Button>
+      <Button variant="outline">Button</Button>
     </>
   );
 }

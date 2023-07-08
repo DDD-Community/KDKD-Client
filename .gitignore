@@ -22,6 +22,8 @@ dist-ssr
 *.sln
 *.sw?
 
+node_modules
+
 # Yarn Berry Zero-Install
 .yarn/*
 !.yarn/cache

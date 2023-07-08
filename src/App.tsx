@@ -1,6 +1,6 @@
-import HStack from "./components/common/Stack/HStack";
-import VStack from "./components/common/Stack/VStack";
-import { Button } from "@/components/ui/button";
+import HStack from './components/common/Stack/HStack';
+import VStack from './components/common/Stack/VStack';
+import { Button } from '@/components/ui/button';
 
 function App() {
   return (

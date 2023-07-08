@@ -1,5 +1,5 @@
-import Stack from "./index";
-import { StackProps } from "./types";
+import Stack from './index';
+import { StackProps } from './types';
 
 function HStack({ justifyContent, alignItems, gap, children }: StackProps) {
   return (

@@ -1,7 +1,7 @@
-import { StackProps } from "./types";
+import { StackProps } from './types';
 
 interface Props extends StackProps {
-  flexDirection: "row" | "column";
+  flexDirection: 'row' | 'column';
 }
 
 function Stack({
@@ -14,10 +14,10 @@ function Stack({
   return (
     <div
       style={{
-        display: "flex",
-        flexDirection: flexDirection ?? "row",
-        justifyContent: justifyContent ?? "flex-start",
-        alignItems: alignItems ?? "flex-start",
+        display: 'flex',
+        flexDirection: flexDirection ?? 'row',
+        justifyContent: justifyContent ?? 'flex-start',
+        alignItems: alignItems ?? 'flex-start',
         gap: gap ?? 0,
       }}
     >

@@ -13,5 +13,5 @@ export const ColorPalette = {
   red: {
     '100': '#FBE7E7',
     '800': '#EB5151',
-  }
-}
+  },
+};

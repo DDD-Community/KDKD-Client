@@ -22,6 +22,8 @@ dist-ssr
 *.sln
 *.sw?
 
+.env
+
 node_modules
 
 # Yarn Berry Zero-Install

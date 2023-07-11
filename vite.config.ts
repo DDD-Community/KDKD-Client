@@ -26,7 +26,6 @@ function buildExtensionHtml(): PluginOption {
   function make() {
     const htmlFilePath = resolve(__dirname, 'extension.html');
     const htmlContent = fs.readFileSync(htmlFilePath, 'utf-8');
-    console.log('htmlContent', htmlContent);
     const htmlPath = resolve(outDir, 'extension.html');
     fs.writeFileSync(htmlPath, htmlContent);
   }
@@ -39,9 +38,30 @@ function buildExtensionHtml(): PluginOption {
   };
 }
 
+function buildBackgroundJS(): PluginOption {
+  function make() {
+    const backgroundJSPath = resolve(__dirname, 'background.js');
+    const backgroundJSContent = fs.readFileSync(backgroundJSPath, 'utf-8');
+    const outputPath = resolve(outDir, 'background.js');
+    fs.writeFileSync(outputPath, backgroundJSContent);
+  }
+
+  return {
+    name: 'make-background-js',
+    generateBundle() {
+      make();
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react(), buildManifest(), buildExtensionHtml()],
+  plugins: [
+    react(),
+    buildManifest(),
+    buildExtensionHtml(),
+    buildBackgroundJS(),
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),

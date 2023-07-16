@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@/components/ui/button';
 import type { RootState } from '@/redux/store';
-import { userInfoType } from '@/redux/slices/loginSlice';
-import { login } from '@/redux/slices/loginSlice';
+import { userType } from '@/redux/slices/userSlice';
+import { user } from '@/redux/slices/userSlice';
 
 function GoogleLogin() {
-  const userInfo = useSelector((state: RootState) => state.login.value);
+  const userInfo = useSelector((state: RootState) => state.user.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,13 +34,13 @@ function GoogleLogin() {
           const [photoInfo] = data.photos;
           const [emailInfo] = data.emailAddresses;
 
-          const newUserInfo: userInfoType = {
+          const newUserInfo: userType = {
             name: nameInfo.displayName,
             photoUrl: photoInfo.url,
             email: emailInfo.value,
           };
 
-          dispatch(login(newUserInfo));
+          dispatch(user(newUserInfo));
         });
     });
   }

@@ -9,6 +9,9 @@ ReactDOM.createRoot(document.getElementById('extension') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
       <div style={{ width: 500 }}>
+        <span id="dom-control-span">
+          Lorem ipsum dolor sit amet consectetur.
+        </span>
         <GoogleLogin />
       </div>
     </Provider>

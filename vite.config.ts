@@ -54,6 +54,25 @@ function buildBackgroundJS(): PluginOption {
   };
 }
 
+function buildContentScriptJS(): PluginOption {
+  function make() {
+    const contentScriptJSPath = resolve(__dirname, 'contentscript.js');
+    const contentScriptJSContent = fs.readFileSync(
+      contentScriptJSPath,
+      'utf-8',
+    );
+    const outputPath = resolve(outDir, 'contentscript.js');
+    fs.writeFileSync(outputPath, contentScriptJSContent);
+  }
+
+  return {
+    name: 'make-contentscript-js',
+    generateBundle() {
+      make();
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -61,6 +80,7 @@ export default defineConfig({
     buildManifest(),
     buildExtensionHtml(),
     buildBackgroundJS(),
+    buildContentScriptJS(),
   ],
   resolve: {
     alias: {

@@ -10,6 +10,12 @@ const manifest = {
     background: {
       service_worker: 'background.js',
     },
+    content_scripts: [
+      {
+        matches: ['<all_urls>'],
+        js: ['contentscript.js'],
+      },
+    ],
     oauth2: {
       client_id:
         '552256858077-i9be55mn288a1qli8dpd5lso0f2he2cm.apps.googleusercontent.com',
@@ -19,7 +25,7 @@ const manifest = {
         'https://www.googleapis.com/auth/userinfo.email',
       ],
     },
-    permissions: ['identity'],
+    permissions: ['identity', 'activeTab'],
   },
 };
 

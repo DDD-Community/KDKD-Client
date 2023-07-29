@@ -1,50 +1,46 @@
-document.addEventListener('mouseup', () => {
-  let selectText;
-  // if (window.getSelection) {
-  //   const selection = window.getSelection();
-  //   selectText = selection.toString()
-  //   if (selectText.length > 0) {
-  //     // selection.removeAllRanges();
+const highlighter = document.createElement('div');
 
-  //     const newRange = selection.getRangeAt(0);
-  //     console.log(selection);
-  //     selection.addRange(newRange);
+let selectedText;
 
-  //     let tmpNode = document.createElement('span');
-  //     tmpNode.innerHTML = `<b>웹이즈프리</b>`;
-  //     tmpNode.appendChild(newRange.surroundContents());
-  //     newRange.insertNode(tmpNode);
+function createHighlighter(event) {
+  highlighter.id = 'highlighter';
+  highlighter.textContent = '도구';
 
+  highlighter.style.zIndex = 2147483647;
+  highlighter.style.position = 'absolute';
+  highlighter.style.top = `${event.clientY - 30}px`;
+  highlighter.style.left = `${event.clientX}px`;
+  highlighter.style.backgroundColor = 'white';
+  highlighter.style.borderRadius = '50%';
+  highlighter.style.width = '30px';
+  highlighter.style.height = '30px';
+  highlighter.style.display = 'flex';
+  highlighter.style.alignItems = 'center';
+  highlighter.style.justifyContent = 'center';
+  highlighter.style.color = 'black';
+  highlighter.style.cursor = 'pointer';
 
-  //     newRange.deleteContents();
-  //     newRange.insertNode(tmpNode);
-  //   }
-  //   console.log(selection);
-  // }
+  document.body.appendChild(highlighter);
+}
 
-  // console.log('text', selectText);
+function removeHighlighter() {
+  const highlighterElement = document.getElementById('highlighter');
 
-  selectedText = window.getSelection().toString().trim();
-  const translatorIcon = document.createElement('div');
-
-  if (selectedText) {
-    translatorIcon.className = 'translator-icon';
-    translatorIcon.textContent = '동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세';
-    const selectionRect = window.getSelection().getRangeAt(0).getBoundingClientRect();
-    // translatorIcon.style.top = `${selectionRect.top - 30}px`;
-    // translatorIcon.style.left = `${selectionRect.left}px`;
-    translatorIcon.style.width = '500px';
-    translatorIcon.style.height = '500px';
-
-
-    translatorIcon.addEventListener('click', () => {
-      // Send the selected text to the popup
-      chrome.runtime.sendMessage({ action: 'text_selected', text: selectedText });
-      translatorIcon.style.display = 'none';
-    });
-
-    document.body.appendChild(translatorIcon);
-  } else {
-    document.body.removeChild(translatorIcon);
+  if (highlighterElement) {
+    highlighterElement.remove();
   }
-})
+}
+
+document.addEventListener('selectionchange', () => {
+  selectedText = window.getSelection().toString().trim();
+
+  if (!selectedText) {
+    removeHighlighter();
+  }
+});
+
+document.addEventListener('mouseup', (event) => {
+  if (selectedText) {
+    createHighlighter(event);
+  }
+});

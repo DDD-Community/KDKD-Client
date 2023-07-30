@@ -1,11 +1,18 @@
 import HStack from '@/components/common/Stack/HStack';
 import VStack from '@/components/common/Stack/VStack';
 import { Button } from '@/components/ui/button';
+import { Body, Headline, Label, Title } from '@/components/common/Typography';
 
 function Home() {
   return (
     <div>
-      <h1>home</h1>
+      <h1>header</h1>
+      <Headline style={{ textDecoration: 'underline' }}>
+        Hi, I am header!
+      </Headline>
+      <Title>I am Title</Title>
+      <Body className="body-14-400">I am Body</Body>
+      <Label className="label-14-400">I am Label</Label>
       <VStack gap={20}>
         <HStack justifyContent="center" alignItems="center" gap={40}>
           <div>1231231323123123</div>

@@ -1,13 +1,38 @@
 export const ColorPalette = {
+  white: '#FFFFFF',
+  black: '#000000',
+  primary: '#0643F1',
+  secondary: '#1D36BC',
+  success: '#0ACBA8',
+  error: '#FF5327',
+  tint: {
+    blue: '#C5D4FE',
+    green: '#7297FF',
+    red: '#3065FA',
+    yellow: '#1D36BC',
+  },
   blue: {
-    '200': '#DFE6FC',
-    '800': '#3A68F3',
+    '000': '#ECF0FF',
+    '100': '#E4EAFF',
+    '200': '#C1D1FE',
+    '300': '#7297FF',
+    '400': '#3065FA',
+    '500': '#0643F1',
+    '600': '#1D36BC',
+    '700': '#212A89',
+    '800': '#1D1E5A',
+    '900': '#15132F',
   },
   gray: {
+    '000': '#F9FAFB',
     '100': '#F2F4F7',
+    '200': '#E4E7EC',
+    '300': '#D0D5DD',
+    '400': '#98A2B3',
+    '500': '#667085',
     '600': '#475467',
     '700': '#344054',
-    '800': '#262626',
+    '800': '#1D2939',
     '900': '#101828',
   },
   red: {
@@ -15,3 +40,16 @@ export const ColorPalette = {
     '800': '#EB5151',
   },
 };
+
+export const {
+  white,
+  black,
+  primary,
+  secondary,
+  success,
+  error,
+  tint,
+  blue,
+  gray,
+  red,
+} = ColorPalette;

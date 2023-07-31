@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import { ColorPalette } from './src/styles/ColorPalette'
+
 module.exports = {
   darkMode: ['class'],
   content: [
@@ -8,26 +10,7 @@ module.exports = {
     './src/**/*.{ts,tsx}',
   ],
   theme: {
-    colors: {
-      white: '#FFFFFF',
-      black: '#000000',
-      primary: '#3A68F3',
-      blue: {
-        200: '#DFE6FC',
-        800: '#3A68F3',
-      },
-      gray: {
-        100: '#F2F4F7',
-        600: '#475467',
-        700: '#344054',
-        800: '#262626',
-        900: '#101828',
-      },
-      red: {
-        100: '#FBE7E7',
-        800: '#EB5151',
-      },
-    },
+    colors: { ...ColorPalette },
     container: {
       center: true,
       padding: '2rem',

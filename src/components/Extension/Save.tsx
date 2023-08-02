@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { gray } from '@/styles/ColorPalette';
 import { Input } from '@/components/ui/input';
 import { Label } from '../common/Typography';
+import defaultUrlOGImage from '@/assets/images/defaultUrlOGImage.png';
 
 const styles = {
   container: {
@@ -11,11 +12,19 @@ const styles = {
     backgroundColor: gray[100],
   },
   header: {},
+  urlSection: {
+    display: 'flex',
+    gap: '10px',
+  },
+  urlLeftSection: {
+    flex: 1,
+  },
   footer: {},
 };
 
 function Save() {
   const [url, setUrl] = useState('');
+  const [pageOGImage, setPageOGImage] = useState('');
   const [urlTitle, setUrlTitle] = useState('');
   const [categoryInput, setCategoryInput] = useState('');
   const [tagList, setTagList] = useState([]);
@@ -39,15 +48,19 @@ function Save() {
   return (
     <div style={styles.container}>
       <header style={styles.header}></header>
-      <section>
-        <Input
-          type="text"
-          placeholder="URL 제목을 입력하세요."
-          error={urlInputError}
-          value={urlTitle}
-          onChange={(e) => setUrlTitle(e.target.value)}
-        />
-      </section>
+      <main style={styles.urlSection}>
+        <img src={defaultUrlOGImage} alt="Page Og Image" />
+        <section style={styles.urlLeftSection}>
+          <section></section>
+          <Input
+            type="text"
+            placeholder="URL 제목을 입력하세요."
+            error={urlInputError}
+            value={urlTitle}
+            onChange={(e) => setUrlTitle(e.target.value)}
+          />
+        </section>
+      </main>
       <main>
         <section>
           <Label>카테고리</Label>

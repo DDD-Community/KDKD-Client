@@ -13,6 +13,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@radix-ui/primitive": "^1.0.1",
+    "@radix-ui/react-select": "^1.2.2",
     "@radix-ui/react-slot": "^1.0.2",
     "@reduxjs/toolkit": "^1.9.5",
     "class-variance-authority": "^0.6.1",

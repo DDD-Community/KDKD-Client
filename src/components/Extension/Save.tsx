@@ -8,6 +8,7 @@ import { Label } from '../common/Typography';
 import defaultUrlOGImage from '@/assets/images/defaultUrlOGImage.png';
 import Home from '@/assets/svg/Home';
 import IsNotSaved from '@/assets/svg/IsNotSaved';
+import TagInput, { Tag } from '../common/TagInput';
 
 const styles = {
   container: {
@@ -60,7 +61,7 @@ function Save() {
   const [pageOGImage, setPageOGImage] = useState('');
   const [urlTitle, setUrlTitle] = useState('');
   const [categoryInput, setCategoryInput] = useState('');
-  const [tagList, setTagList] = useState([]);
+  const [tagList, setTagList] = useState<Tag[]>([]);
   const [memo, setMemo] = useState('');
   const [saveForLater, setSaveForLater] = useState(false);
 
@@ -77,6 +78,10 @@ function Save() {
         })
       : setUrlInputError({ isError: false, helperText: '' });
   }, [urlTitle]);
+
+  const handleTagChange = (tags: Tag[]) => {
+    setTagList(tags);
+  };
 
   return (
     <div style={styles.container}>
@@ -112,7 +117,7 @@ function Save() {
         </section>
         <section style={styles.urlInfoSection}>
           <Label style={{ color: ColorPalette.gray[500] }}>태그</Label>
-          <Input placeholder="10개 입력부터 가능" />
+          <TagInput onTagChange={handleTagChange} />
         </section>
         <section style={styles.urlInfoSection}>
           <Label style={{ color: ColorPalette.gray[500] }}>메모</Label>

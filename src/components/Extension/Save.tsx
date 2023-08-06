@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { ColorPalette, gray } from '@/styles/ColorPalette';
+import UrlInfoSection from './UrlInfoSection';
 import { Input } from '@/components/ui/input';
 import { Select } from '../ui/select';
 import { Textarea } from '../ui/textarea';
@@ -38,11 +39,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'column' as const,
     gap: '12px',
-  },
-  urlInfoSection: {
-    display: 'flex',
-    flexDirection: 'column' as const,
-    gap: '5px',
   },
   urlAddress: {
     color: ColorPalette.gray[500],
@@ -111,18 +107,15 @@ function Save() {
             </section>
           </section>
         </section>
-        <section style={styles.urlInfoSection}>
-          <Label style={{ color: ColorPalette.gray[500] }}>카테고리</Label>
+        <UrlInfoSection label={'카테고리'}>
           <Input placeholder="일단 임시방편 select 대신" />
-        </section>
-        <section style={styles.urlInfoSection}>
-          <Label style={{ color: ColorPalette.gray[500] }}>태그</Label>
+        </UrlInfoSection>
+        <UrlInfoSection label={'태그'}>
           <TagInput onTagChange={handleTagChange} />
-        </section>
-        <section style={styles.urlInfoSection}>
-          <Label style={{ color: ColorPalette.gray[500] }}>메모</Label>
+        </UrlInfoSection>
+        <UrlInfoSection label={'메모'}>
           <Textarea placeholder="메모 입력이 가능합니다." />
-        </section>
+        </UrlInfoSection>
         <section style={{ display: 'flex', gap: '9px' }}>
           <input type="checkbox" />
           <Label style={{ color: ColorPalette.gray[700] }}>

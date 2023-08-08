@@ -9,7 +9,7 @@ export interface Tag {
 }
 
 interface Props {
-  onTagChange: (tag: Tag[]) => void;
+  onChange: (tag: Tag[]) => void;
 }
 
 const styles = {
@@ -48,7 +48,7 @@ const styles = {
   },
 };
 
-function TagInput({ onTagChange }: Props) {
+function TagInput({ onChange }: Props) {
   const CHARACTER_WIDTH = 10.5;
   const [tags, setTags] = useState<Tag[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -83,7 +83,7 @@ function TagInput({ onTagChange }: Props) {
   };
 
   useEffect(() => {
-    onTagChange([...tags]);
+    onChange([...tags]);
   }, [tags]);
 
   useEffect(() => {

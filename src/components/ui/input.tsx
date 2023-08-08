@@ -20,12 +20,6 @@ const inputBorderStyle = {
   },
 };
 
-const helperTextStyle = {
-  color: ColorPalette.error,
-  paddingTop: '4xp',
-  paddingLeft: '12px',
-};
-
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, error, ...props }, ref) => {
     return (
@@ -40,9 +34,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        {error?.isError && (
-          <Label style={helperTextStyle}>{error.helperText}</Label>
-        )}
       </>
     );
   },

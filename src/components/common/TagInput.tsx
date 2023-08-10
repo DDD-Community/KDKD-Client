@@ -52,7 +52,6 @@ function TagInput({ onChange }: Props) {
   const CHARACTER_WIDTH = 10.5;
   const [tags, setTags] = useState<Tag[]>([]);
   const [inputValue, setInputValue] = useState('');
-  const [inputWidth, setInputWidth] = useState(4);
   const [showPlaceholder, setShowPlaceholder] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -87,15 +86,7 @@ function TagInput({ onChange }: Props) {
   }, [tags]);
 
   useEffect(() => {
-    setInputWidth((inputValue.length + 1) * CHARACTER_WIDTH);
-  }, [inputValue]);
-
-  useEffect(() => {
-    if (inputValue.length === 0 && tags.length === 0) {
-      setShowPlaceholder(true);
-    } else {
-      setShowPlaceholder(false);
-    }
+    setShowPlaceholder(inputValue.length === 0 && tags.length === 0);
   }, [inputValue, tags]);
 
   const handleTagDelete = (tagId: number) => {
@@ -115,7 +106,10 @@ function TagInput({ onChange }: Props) {
         ref={inputRef}
         onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
-        style={{ ...styles.input, width: inputWidth }}
+        style={{
+          ...styles.input,
+          width: (inputValue.length + 1) * CHARACTER_WIDTH,
+        }}
       />
       {showPlaceholder && (
         <Body style={styles.placeholder}>

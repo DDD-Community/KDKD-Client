@@ -25,6 +25,11 @@ const styles = {
     background: ColorPalette.white,
     cursor: 'text',
   },
+  containerFocused: {
+    outline: 'none',
+    border: `1px solid ${ColorPalette.primary}`,
+    boxShadow: `0px 0px 4px 0px ${ColorPalette.primary}`,
+  },
   tag: {
     display: 'flex',
     justifyContent: 'center',
@@ -53,10 +58,19 @@ function TagInput({ onChange }: Props) {
   const [tags, setTags] = useState<Tag[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [showPlaceholder, setShowPlaceholder] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const focusInput = () => {
     if (inputRef.current) inputRef.current.focus();
+  };
+
+  const handleFocus: React.FocusEventHandler<HTMLInputElement> = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur: React.FocusEventHandler<HTMLInputElement> = () => {
+    setIsFocused(false);
   };
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -94,7 +108,13 @@ function TagInput({ onChange }: Props) {
   };
 
   return (
-    <div style={styles.container} onClick={focusInput}>
+    <div
+      style={{
+        ...styles.container,
+        ...(isFocused ? styles.containerFocused : {}),
+      }}
+      onClick={focusInput}
+    >
       {tags.map((tag) => (
         <div key={tag.id} style={styles.tag}>
           <Label>{tag.text}</Label>
@@ -104,6 +124,8 @@ function TagInput({ onChange }: Props) {
       <input
         value={inputValue}
         ref={inputRef}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         onChange={handleInputChange}
         onKeyDown={handleInputKeyDown}
         style={{

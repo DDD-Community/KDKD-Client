@@ -151,7 +151,7 @@ function Save() {
             />
           </UrlInfoSection>
           <section style={{ display: 'flex', gap: '9px' }}>
-            <input type="checkbox" />
+            <input {...register('saveForLater')} type="checkbox" />
             <Label style={{ color: ColorPalette.gray[700] }}>
               나중에 볼 URL에 저장
             </Label>

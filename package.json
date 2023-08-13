@@ -19,6 +19,7 @@
     "@reduxjs/toolkit": "^1.9.5",
     "class-variance-authority": "^0.6.1",
     "clsx": "^1.2.1",
+    "dnd-core": "^16.0.1",
     "lucide-react": "^0.259.0",
     "prettier": "^2.8.8",
     "react": "^18.2.0",

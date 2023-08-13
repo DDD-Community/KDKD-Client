@@ -3224,6 +3224,7 @@ __metadata:
     tailwindcss-animate: ^1.0.6
     typescript: ^5.0.2
     vite: ^4.3.9
+    web-highlighter: ^0.7.4
   languageName: unknown
   linkType: soft
 
@@ -4828,6 +4829,13 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: 8c45a516278d1e0425fac00c0877336790f71484a851a318346a70e0d2aef9f3b9651deb2f9f002c791ceb920eda7d6a3cda753bdefd657321c99f448b02dd25
+  languageName: node
+  linkType: hard
+
+"web-highlighter@npm:^0.7.4":
+  version: 0.7.4
+  resolution: "web-highlighter@npm:0.7.4"
+  checksum: c4c230e399a45cdb2b67a3adcdcb366e61f3f7e1ef61c02ae6b927c5d0c8445526ff6506d87abe47a409f4c7fabb5b003969444f734c056fdea5ac93257189a3
   languageName: node
   linkType: hard
 

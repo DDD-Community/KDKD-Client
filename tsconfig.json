@@ -28,5 +28,6 @@
     "vite.config.ts",
     "./manifest.ts",
     "./contentscript.js",
+    "./background.js",
   ]
 }

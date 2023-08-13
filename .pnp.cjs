@@ -64,7 +64,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tailwindcss", "npm:3.3.2"],\
             ["tailwindcss-animate", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:1.0.6"],\
             ["typescript", "patch:typescript@npm%3A5.1.3#~builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
-            ["vite", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:4.3.9"]\
+            ["vite", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:4.3.9"],\
+            ["web-highlighter", "npm:0.7.4"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -3979,7 +3980,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tailwindcss", "npm:3.3.2"],\
             ["tailwindcss-animate", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:1.0.6"],\
             ["typescript", "patch:typescript@npm%3A5.1.3#~builtin<compat/typescript>::version=5.1.3&hash=5da071"],\
-            ["vite", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:4.3.9"]\
+            ["vite", "virtual:bcfdc349e3850c4d1330758f20d54fec3c4a6c9800866098bfd0175b222e5a41eec37fecf2ccb1a0b0e1ec6546b9067d19c1c881758aeee5e4fd7d159db62f68#npm:4.3.9"],\
+            ["web-highlighter", "npm:0.7.4"]\
           ],\
           "linkType": "SOFT"\
         }]\
@@ -5891,6 +5893,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             "stylus",\
             "sugarss",\
             "terser"\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["web-highlighter", [\
+        ["npm:0.7.4", {\
+          "packageLocation": "./.yarn/cache/web-highlighter-npm-0.7.4-21c365fb08-c4c230e399.zip/node_modules/web-highlighter/",\
+          "packageDependencies": [\
+            ["web-highlighter", "npm:0.7.4"]\
           ],\
           "linkType": "HARD"\
         }]\

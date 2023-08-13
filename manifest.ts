@@ -14,6 +14,7 @@ const manifest = {
       {
         matches: ['<all_urls>'],
         js: ['contentscript.js'],
+        run_at: 'document_idle',
       },
     ],
     oauth2: {

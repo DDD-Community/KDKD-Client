@@ -11,6 +11,7 @@ import Home from '@/assets/svg/Home';
 import IsNotSaved from '@/assets/svg/IsNotSaved';
 import TagInput, { Tag } from '../common/TagInput';
 import { useForm, Controller } from 'react-hook-form';
+import DirectoryTree from '../common/Directory/DirectoryTree';
 
 interface IFormInputs {
   urlTitle: string;
@@ -101,6 +102,7 @@ function Save() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)}>
       <div style={styles.container}>
+        <DirectoryTree />
         <header style={styles.header}>
           <Home />
         </header>

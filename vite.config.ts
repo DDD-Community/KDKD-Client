@@ -54,6 +54,22 @@ function buildBackgroundJS(): PluginOption {
   };
 }
 
+function buildSidePanelHtml(): PluginOption {
+  function make() {
+    const htmlFilePath = resolve(__dirname, 'sidepanel.html');
+    const htmlContent = fs.readFileSync(htmlFilePath, 'utf-8');
+    const htmlPath = resolve(outDir, 'sidepanel.html');
+    fs.writeFileSync(htmlPath, htmlContent);
+  }
+
+  return {
+    name: 'make-sidepanel-html',
+    generateBundle() {
+      make();
+    },
+  };
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
@@ -61,6 +77,7 @@ export default defineConfig({
     buildManifest(),
     buildExtensionHtml(),
     buildBackgroundJS(),
+    buildSidePanelHtml(),
   ],
   resolve: {
     alias: {
@@ -72,6 +89,7 @@ export default defineConfig({
       input: {
         index: resolve(__dirname, 'index.html'),
         extension: resolve(__dirname, 'extension.html'),
+        sidepanel: resolve(__dirname, 'sidepanel.html'),
       },
     },
   },

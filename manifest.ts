@@ -7,6 +7,9 @@ const manifest = {
     action: {
       default_popup: 'extension.html',
     },
+    side_panel: {
+      default_path: 'sidepanel.html',
+    },
     background: {
       service_worker: 'background.js',
     },
@@ -19,7 +22,7 @@ const manifest = {
         'https://www.googleapis.com/auth/userinfo.email',
       ],
     },
-    permissions: ['identity'],
+    permissions: ['identity', 'sidePanel'],
   },
 };
 

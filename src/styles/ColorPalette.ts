@@ -29,7 +29,7 @@ export const ColorPalette = {
     '200': '#E4E7EC',
     '300': '#D0D5DD',
     '400': '#98A2B3',
-    '500': '#667085',
+    '500': '#8C94A6',
     '600': '#475467',
     '700': '#344054',
     '800': '#1D2939',
@@ -38,6 +38,10 @@ export const ColorPalette = {
   red: {
     '100': '#FBE7E7',
     '800': '#EB5151',
+  },
+  gradient: {
+    '01': 'linear-gradient(#0643F1, #7297FF)',
+    '02': 'linear-gradient(#0643F1, #72D5FF)',
   },
 };
 
@@ -52,4 +56,5 @@ export const {
   blue,
   gray,
   red,
+  gradient,
 } = ColorPalette;

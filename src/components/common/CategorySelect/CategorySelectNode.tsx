@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NodeModel } from '@minoru/react-dnd-treeview';
 import { Body } from '../Typography';
+import { ColorPalette } from '@/styles/ColorPalette';
 import ArrowRightIcon from '@/assets/svg/ArrowRightIcon';
 import CategoryIcon from '@/assets/svg/Category';
-import { ColorPalette } from '@/styles/ColorPalette';
 import AddIcon from '@/assets/svg/AddIcon';
+import { Input } from '@/components/ui/input';
+import Done from '@/assets/svg/Done';
 
 export type CustomData = {
   fileType: string;
@@ -18,6 +20,7 @@ type Props = {
   onToggle: (id: NodeModel['id']) => void;
   onAdd: (parentId: NodeModel['id']) => void;
   onClick: (id: NodeModel['id']) => void;
+  onSubmitNewCategory: (name: string) => void;
 };
 
 const cssStyles = {
@@ -50,6 +53,16 @@ const styles = {
   labelGridItem: {
     paddingInlineStart: '8px',
   },
+  inputWrapper: {
+    display: 'flex',
+    gap: '8px',
+    alignItems: 'center',
+  },
+  input: {
+    height: '18px',
+    fontSize: '14px',
+    padding: '10px 4px',
+  },
   addIcon: {
     cursor: 'pointer',
   },
@@ -58,6 +71,7 @@ const styles = {
 const CategorySelectNode: React.FC<Props> = (props) => {
   const indent = props.depth * 24;
   const [isHovered, setIsHovered] = useState(false);
+  const [newCategoryName, setNewCategoryName] = useState('');
 
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -70,6 +84,21 @@ const CategorySelectNode: React.FC<Props> = (props) => {
     if (!props.isOpen) props.onToggle(props.node.id);
   };
 
+  const submitName = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (newCategoryName.trim().length > 0) {
+      props.onSubmitNewCategory(newCategoryName);
+    }
+  };
+
+  const handleInputKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (
+    e,
+  ) => {
+    if (e.key === 'Enter' && newCategoryName.trim().length > 0) {
+      props.onSubmitNewCategory(newCategoryName);
+    }
+  };
+
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -77,6 +106,14 @@ const CategorySelectNode: React.FC<Props> = (props) => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+    setNewCategoryName(e.target.value);
+  };
+  useEffect(() => {
+    nameInputRef.current?.focus();
+  }, [nameInputRef]);
 
   return (
     <div
@@ -101,9 +138,23 @@ const CategorySelectNode: React.FC<Props> = (props) => {
         <CategoryIcon />
       </div>
       <div style={styles.labelGridItem}>
-        <Body>{props.node.text}</Body>
+        {props.node.id === -1 ? (
+          <div style={styles.inputWrapper}>
+            <Input
+              style={styles.input}
+              placeholder="신규 카테고리 명"
+              onChange={handleNameChange}
+              onClick={(e) => e.stopPropagation()}
+              onKeyDown={handleInputKeyDown}
+              ref={nameInputRef}
+            />
+            <Done onClick={submitName} />
+          </div>
+        ) : (
+          <Body>{props.node.text}</Body>
+        )}
       </div>
-      {isHovered && (
+      {isHovered && props.node.id !== -1 && (
         <div style={styles.addIcon}>
           <AddIcon onClick={handleAdd} />
         </div>

@@ -50,7 +50,6 @@ function CategorySelect({ onChange }: Props) {
   const [treeData, setTreeData] = useState<NodeModel[]>(SampleData);
   const [categoryPath, setCategoryPath] = useState('');
   const [isContentOpen, setIsContentOpen] = useState(false);
-  // const [showInput]
 
   const toggleContent = () => {
     setIsContentOpen(!isContentOpen);
@@ -88,9 +87,24 @@ function CategorySelect({ onChange }: Props) {
     const newCategory: NodeModel = {
       id: -1,
       parent: Number(parentId),
-      text: 'test',
+      text: '신규 카테고리',
     };
     setTreeData([...treeData, newCategory]);
+  };
+
+  const handleSubmitNewCategory = (newCategoryName: string) => {
+    // submit API 보내기
+    const newTreeData = [...treeData];
+    const targetIndex = newTreeData.findIndex((item) => item.id === -1);
+    if (targetIndex !== -1) {
+      const newId = treeData.length; // API 응답 데이터(id)
+      newTreeData[targetIndex] = {
+        ...newTreeData[targetIndex],
+        id: newId,
+        text: newCategoryName,
+      };
+    }
+    setTreeData(newTreeData);
   };
 
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -110,6 +124,7 @@ function CategorySelect({ onChange }: Props) {
       document.addEventListener('mousedown', handleClickOutside);
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
+      setTreeData(treeData.filter((item) => item.id !== -1));
     }
 
     return () => {
@@ -120,7 +135,7 @@ function CategorySelect({ onChange }: Props) {
   return (
     <>
       <div style={styles.trigger} onClick={toggleContent} ref={triggerRef}>
-        <Label>{categoryPath || 'placeholder'}</Label>
+        <Label className="label-14-400">{categoryPath || '미지정'}</Label>
         {isContentOpen ? <CaretUp /> : <CaretDown />}
       </div>
       {isContentOpen && (
@@ -137,6 +152,7 @@ function CategorySelect({ onChange }: Props) {
                     isOpen={isOpen}
                     onToggle={onToggle}
                     onAdd={handleAddCategory}
+                    onSubmitNewCategory={handleSubmitNewCategory}
                     onClick={handleValueChange}
                   />
                 )}

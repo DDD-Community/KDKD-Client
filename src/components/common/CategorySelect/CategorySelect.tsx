@@ -194,6 +194,8 @@ function CategorySelect({ onChange }: Props) {
                 dragPreviewRender={(monitorProps) => (
                   <div>{monitorProps.item.text}</div>
                 )}
+                canDrag={() => false}
+                canDrop={() => false}
                 onDrop={handleDrop}
                 classes={{
                   root: CssStyles.treeRoot,

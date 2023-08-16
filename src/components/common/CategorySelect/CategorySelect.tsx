@@ -84,6 +84,8 @@ function CategorySelect({ onChange }: Props) {
 
   const handleAddCategory = (parentId: NodeModel['id']) => {
     // id가 -1인 디렉토리가 있다면 노노
+    const newText = '신규 카테고리';
+
     const newCategory: NodeModel = {
       id: -1,
       parent: Number(parentId),
@@ -92,16 +94,49 @@ function CategorySelect({ onChange }: Props) {
     setTreeData([...treeData, newCategory]);
   };
 
+  const generateUniqueCategoryName = (
+    parent: number,
+    desiredName: string,
+  ): string => {
+    const sameParentAndTextItems = treeData.filter(
+      (item) => item.parent === parent && item.text.startsWith(desiredName),
+    );
+
+    if (sameParentAndTextItems.length === 0) {
+      return desiredName;
+    }
+
+    let maxNumber = 0;
+    sameParentAndTextItems.forEach((item) => {
+      const numPart = item.text.replace(desiredName, '').trim();
+      const num = Number(numPart);
+      if (!isNaN(num) && num > maxNumber) {
+        maxNumber = num;
+      }
+    });
+
+    const nextNumber = maxNumber + 1;
+    const nextNumberStr = nextNumber.toString().padStart(2, '0');
+
+    return `${desiredName} ${nextNumberStr}`;
+  };
+
   const handleSubmitNewCategory = (newCategoryName: string) => {
     // submit API 보내기
     const newTreeData = [...treeData];
     const targetIndex = newTreeData.findIndex((item) => item.id === -1);
+
     if (targetIndex !== -1) {
       const newId = treeData.length; // API 응답 데이터(id)
+      const newUniqueCategoryName = generateUniqueCategoryName(
+        Number(newTreeData[targetIndex].parent),
+        newCategoryName,
+      );
+
       newTreeData[targetIndex] = {
         ...newTreeData[targetIndex],
         id: newId,
-        text: newCategoryName,
+        text: newUniqueCategoryName,
       };
     }
     setTreeData(newTreeData);

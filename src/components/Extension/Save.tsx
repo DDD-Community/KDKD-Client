@@ -11,10 +11,11 @@ import Home from '@/assets/svg/Home';
 import IsNotSaved from '@/assets/svg/IsNotSaved';
 import TagInput, { Tag } from '../common/TagInput';
 import { useForm, Controller } from 'react-hook-form';
+import CategorySelect from '../common/CategorySelect/CategorySelect';
 
 interface IFormInputs {
   urlTitle: string;
-  category: string; //temp
+  category: number | null;
   tags: Tag[];
   memo: string;
   saveForLater: boolean;
@@ -61,7 +62,6 @@ const styles = {
     paddingTop: '4xp',
     paddingLeft: '12px',
   },
-  footer: {},
 };
 
 function Save() {
@@ -71,7 +71,7 @@ function Save() {
 
   const defaultValues: IFormInputs = {
     urlTitle: '',
-    category: 'temp',
+    category: null,
     tags: [],
     memo: '',
     saveForLater: false,
@@ -133,7 +133,13 @@ function Save() {
             </section>
           </section>
           <UrlInfoSection label={'카테고리'}>
-            <Input placeholder="일단 임시방편 select 대신" />
+            <Controller
+              name="category"
+              control={control}
+              render={({ field: { onChange } }) => (
+                <CategorySelect onChange={onChange} />
+              )}
+            />
           </UrlInfoSection>
           <UrlInfoSection label={'태그'}>
             <Controller

@@ -3,6 +3,17 @@ import * as SelectPrimitive from '@radix-ui/react-select';
 import { Check, ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
+import { ColorPalette } from '@/styles/ColorPalette';
+
+const triggerStyle = {
+  backgroundColor: 'white',
+  borderRadius: '4px',
+  '&:focus': {
+    outline: 'none',
+    border: `1px solid ${ColorPalette.primary}`,
+    boxShadow: `0px 0px 4px 0px ${ColorPalette.primary}`,
+  },
+};
 
 const Select = SelectPrimitive.Root;
 
@@ -17,9 +28,10 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      'flex h-10 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+      'flex h-10 w-full items-center justify-between rounded-md border border-input bg-transparent px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
       className,
     )}
+    css={triggerStyle}
     {...props}
   >
     {children}

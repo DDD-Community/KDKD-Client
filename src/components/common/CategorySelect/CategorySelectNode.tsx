@@ -3,7 +3,7 @@ import { NodeModel } from '@minoru/react-dnd-treeview';
 import { Body } from '../Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
 import ArrowRightIcon from '@/assets/svg/ArrowRightIcon';
-import CategoryIcon from '@/assets/svg/Category';
+import CategoryIcon from '@/assets/svg/CategoryIcon';
 import AddIcon from '@/assets/svg/AddIcon';
 import { Input } from '@/components/ui/input';
 import Done from '@/assets/svg/Done';

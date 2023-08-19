@@ -77,10 +77,19 @@ function Save() {
     saveForLater: false,
   };
 
+  async function getCurrentTabUrl() {
+    const queryOptions = { active: true, lastFocusedWindow: true };
+    const [tab] = await chrome.tabs.query(queryOptions);
+    return tab?.url ?? '';
+  }
+
   useEffect(() => {
-    // 해당 페이지의 URL을 받아 URL 설정
-    // setUrl(현재 페이지의 URL)
-    defaultValues.urlTitle = url;
+    const setUrlTitle = async () => {
+      const currentUrl = await getCurrentTabUrl();
+      setUrl(currentUrl);
+      // TODO: URL에 대한 데이터 담아오는 API 요청
+    };
+    setUrlTitle();
   }, []);
 
   const {

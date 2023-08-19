@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 const LNBWrapper = styled.div`
-  flex-basis: 300px;
+  flex-basis: 380px;
   height: calc(100vh - 64px);
   padding-left: 80px;
   background-color: blue;

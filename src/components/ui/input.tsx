@@ -1,14 +1,10 @@
 import * as React from 'react';
 
 import { cn } from '@/lib/utils';
-import { Label } from '../common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  error?: {
-    isError: boolean;
-    helperText: string;
-  };
+  suffix?: React.ReactNode;
 };
 
 const inputBorderStyle = {
@@ -21,7 +17,7 @@ const inputBorderStyle = {
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, error, ...props }, ref) => {
+  ({ className, type, suffix, ...props }, ref) => {
     return (
       <>
         <input
@@ -34,6 +30,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
+        {suffix}
       </>
     );
   },

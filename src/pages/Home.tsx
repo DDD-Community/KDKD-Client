@@ -1,12 +1,11 @@
-import HStack from '@/components/common/Stack/HStack';
-import VStack from '@/components/common/Stack/VStack';
-import { Button } from '@/components/ui/button';
-import { Body, Headline, Label, Title } from '@/components/common/Typography';
-
-import Save from '@/components/Extension/Save';
+import GNB from '@/components/Home/GNB';
 
 function Home() {
-  return <Save />;
+  return (
+    <div>
+      <GNB />
+    </div>
+  );
 }
 
 export default Home;

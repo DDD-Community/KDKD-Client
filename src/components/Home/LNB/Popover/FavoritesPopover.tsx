@@ -1,4 +1,6 @@
-import Icon from '@/components/common/Icon';
+import BinIcon from '@/assets/svg/BinIcon';
+import MemoIcon from '@/assets/svg/MemoIcon';
+import StarIcon from '@/assets/svg/StarIcon';
 import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
 import styled from '@emotion/styled';
@@ -28,15 +30,15 @@ function FavoritesPopover({ id }: Props) {
   return (
     <PopoverContainer>
       <PopoverContentItem>
-        <Icon name="StarIcon" />
+        <StarIcon />
         <Label>즐겨찾기 해제</Label>
       </PopoverContentItem>
       <PopoverContentItem>
-        <Icon name="MemoIcon" />
+        <MemoIcon />
         <Label>카테고리 이름 수정</Label>
       </PopoverContentItem>
       <PopoverContentItem>
-        <Icon name="BinIcon" />
+        <BinIcon />
         <Label>카테고리 삭제</Label>
       </PopoverContentItem>
     </PopoverContainer>

@@ -1,8 +1,8 @@
-import Icon from '@/components/common/Icon';
 import FavoritesItem from '../Items/FavoritesItem';
 import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
 import styled from '@emotion/styled';
+import StarIcon from '@/assets/svg/StarIcon';
 
 const Section = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ function FavoritesSection() {
       <FavoritesItem isFocused={true}>
         <>
           <div style={{ width: '16px' }} />
-          <Icon name="StarIcon" />
+          <StarIcon />
           <Label className="title-14-600">전체 카테고리</Label>
         </>
       </FavoritesItem>

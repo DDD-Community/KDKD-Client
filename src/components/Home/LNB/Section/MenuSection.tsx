@@ -1,20 +1,22 @@
+import MenuIcon from '@/assets/svg/MenuIcon';
 import MenuItem from '../Items/MenuItem';
-import Icon from '@/components/common/Icon';
 import { Label } from '@/components/common/Typography';
+import FolderAlertIcon from '@/assets/svg/FolderAlertIcon';
+import BinIcon from '@/assets/svg/BinIcon';
 
 function MenuSection() {
   return (
     <section>
       <MenuItem>
-        <Icon name="MenuIcon" />
+        <MenuIcon />
         <Label className="title-14-600">전체 카테고리</Label>
       </MenuItem>
       <MenuItem>
-        <Icon name="FolderAlertIcon" />
+        <FolderAlertIcon />
         <Label className="title-14-600">미분류 URL</Label>
       </MenuItem>
       <MenuItem>
-        <Icon name="BinIcon" />
+        <BinIcon />
         <Label className="title-14-600">휴지통</Label>
       </MenuItem>
     </section>

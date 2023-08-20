@@ -1,4 +1,4 @@
-import MenuItem from './MenuItem';
+import MenuItem from '../Items/MenuItem';
 import Icon from '@/components/common/Icon';
 import { Label } from '@/components/common/Typography';
 

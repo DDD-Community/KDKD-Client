@@ -1,7 +1,6 @@
 import FavoritesItem from '../Items/FavoritesItem';
 import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
-import styled from '@emotion/styled';
 import StarIcon from '@/assets/svg/StarIcon';
 import VStack from '@/components/common/Stack/VStack';
 

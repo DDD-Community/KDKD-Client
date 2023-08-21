@@ -10,15 +10,15 @@ function MenuSection() {
     <VStack>
       <MenuItem>
         <MenuIcon />
-        <Label className="title-14-600">전체 카테고리</Label>
+        <Label className="label-14-400">전체 카테고리</Label>
       </MenuItem>
       <MenuItem>
         <FolderAlertIcon />
-        <Label className="title-14-600">미분류 URL</Label>
+        <Label className="label-14-400">미분류 URL</Label>
       </MenuItem>
       <MenuItem>
         <BinIcon />
-        <Label className="title-14-600">휴지통</Label>
+        <Label className="label-14-400">휴지통</Label>
       </MenuItem>
     </VStack>
   );

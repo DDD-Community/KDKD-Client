@@ -18,6 +18,7 @@ export const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    width: '100%',
     height: '40px',
     padding: '0 10px',
     borderRadius: '6px',

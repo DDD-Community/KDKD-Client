@@ -19,6 +19,7 @@ function Stack({
         justifyContent: justifyContent ?? 'flex-start',
         alignItems: alignItems ?? 'flex-start',
         gap: gap ?? 0,
+        width: '100%',
       }}
     >
       {children}

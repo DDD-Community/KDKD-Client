@@ -7,8 +7,13 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import FavoritesPopover from '../Popover/FavoritesPopover';
-import { Props } from './types';
 import { styles, focusedStyle, LeftSection, RightSection } from './style';
+
+interface Props {
+  count?: number;
+  isFocused?: boolean;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+}
 
 function FavoritesItem({
   count = 0,

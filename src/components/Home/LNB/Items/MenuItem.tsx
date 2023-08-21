@@ -1,7 +1,12 @@
 import { Label } from '@/components/common/Typography';
 import { PropsWithChildren } from 'react';
-import { Props } from './types';
 import { styles, focusedStyle, LeftSection, RightSection } from './style';
+
+interface Props {
+  count?: number;
+  isFocused?: boolean;
+  onClick?: React.MouseEventHandler<HTMLDivElement>;
+}
 
 function MenuItem({
   count = 0,

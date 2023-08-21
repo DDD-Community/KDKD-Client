@@ -3,10 +3,11 @@ import MenuItem from '../Items/MenuItem';
 import { Label } from '@/components/common/Typography';
 import FolderAlertIcon from '@/assets/svg/FolderAlertIcon';
 import BinIcon from '@/assets/svg/BinIcon';
+import VStack from '@/components/common/Stack/VStack';
 
 function MenuSection() {
   return (
-    <section>
+    <VStack>
       <MenuItem>
         <MenuIcon />
         <Label className="title-14-600">전체 카테고리</Label>
@@ -19,7 +20,7 @@ function MenuSection() {
         <BinIcon />
         <Label className="title-14-600">휴지통</Label>
       </MenuItem>
-    </section>
+    </VStack>
   );
 }
 

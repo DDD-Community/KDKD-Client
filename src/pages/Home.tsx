@@ -1,10 +1,10 @@
-import GNB from '@/components/Home/GNB';
+import Layout from '@/Layout';
 
 function Home() {
   return (
-    <div>
-      <GNB />
-    </div>
+    <Layout>
+      <div style={{ height: '1000px' }}>hi</div>
+    </Layout>
   );
 }
 

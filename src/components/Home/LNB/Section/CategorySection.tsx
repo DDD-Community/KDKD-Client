@@ -21,18 +21,6 @@ function CategorySection() {
   const [treeData, setTreeData] = useState<NodeModel[]>(SampleData);
   const handleDrop = (newTree: NodeModel[]) => setTreeData(newTree);
 
-  const handleAddCategory = (parentId: NodeModel['id']) => {
-    // id가 -1인 디렉토리가 있다면 노노
-    const newText = '신규 카테고리';
-
-    const newCategory: NodeModel = {
-      id: -1,
-      parent: Number(parentId),
-      text: '신규 카테고리',
-    };
-    setTreeData([...treeData, newCategory]);
-  };
-  const handleSubmitNewCategory = () => {};
   const handleSelect = () => {};
 
   return (
@@ -52,8 +40,6 @@ function CategorySection() {
                   depth={depth}
                   isOpen={isOpen}
                   onToggle={onToggle}
-                  onAdd={handleAddCategory}
-                  onSubmitNewCategory={handleSubmitNewCategory}
                   onClick={handleSelect}
                 />
               )}

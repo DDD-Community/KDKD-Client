@@ -4,6 +4,7 @@ import MenuSection from './Section/MenuSection';
 import FavoritesSection from './Section/FavoritesSection';
 import CategorySection from './Section/CategorySection';
 import VStack from '@/components/common/Stack/VStack';
+import TagSection from './Section/TagSection';
 
 function LNB() {
   return (
@@ -13,6 +14,7 @@ function LNB() {
         <MenuSection />
         <FavoritesSection />
         <CategorySection />
+        <TagSection />
       </VStack>
     </S.LNBWrapper>
   );

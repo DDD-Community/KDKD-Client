@@ -21,9 +21,7 @@ type Props = {
   isOpen: boolean;
   isFocused?: boolean;
   onToggle: (id: NodeModel['id']) => void;
-  onAdd: (parentId: NodeModel['id']) => void;
   onClick: (id: NodeModel['id']) => void;
-  onSubmitNewCategory: (name: string) => void;
 };
 
 const styles = {
@@ -62,12 +60,6 @@ const CategoryItem: React.FC<Props> = (props) => {
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
     props.onToggle(props.node.id);
-  };
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    props.onAdd(props.node.id);
-    if (!props.isOpen) props.onToggle(props.node.id);
   };
 
   const submitName = (e: React.MouseEvent) => {

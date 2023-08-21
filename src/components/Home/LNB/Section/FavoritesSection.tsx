@@ -10,11 +10,73 @@ function FavoritesSection() {
       <Label className="label-12-600" style={{ color: ColorPalette.gray[500] }}>
         즐겨찾기
       </Label>
-      <FavoritesItem isFocused={true}>
-        <div style={{ width: '16px' }} />
-        <StarIcon />
-        <Label className="title-14-600">전체 카테고리</Label>
-      </FavoritesItem>
+      <VStack>
+        <FavoritesItem isFocused={true}>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+        <FavoritesItem>
+          <div style={{ width: '16px' }} />
+          <StarIcon />
+          <Label className="title-14-600">전체 카테고리</Label>
+        </FavoritesItem>
+      </VStack>
     </VStack>
   );
 }

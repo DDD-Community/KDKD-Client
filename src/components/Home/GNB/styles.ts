@@ -7,11 +7,11 @@ const GNBWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 80px 15px;
+  padding: 12px 80px;
 `;
 
 const InputWrapper = styled.div`
-  width: 1175px;
+  width: 1060px;
   display: flex;
   align-items: flex-start;
 

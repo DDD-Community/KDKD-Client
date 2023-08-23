@@ -2,7 +2,7 @@ import HStack from '@/components/common/Stack/HStack';
 import S from './styles';
 import SearchInput from '@/components/common/SearchInput';
 import { useState } from 'react';
-import SearchDetail from '@/components/Home/GNB/SearchDetail';
+import RecentlySearch from '@/components/Home/GNB/RecentlySearch';
 
 function GNB() {
   const [isFocus, setIsFocus] = useState(false);
@@ -28,7 +28,7 @@ function GNB() {
           <span>대충 로그아웃</span>
         </HStack>
       </S.GNBWrapper>
-      {isFocus && <SearchDetail />}
+      {isFocus && <RecentlySearch />}
     </>
   );
 }

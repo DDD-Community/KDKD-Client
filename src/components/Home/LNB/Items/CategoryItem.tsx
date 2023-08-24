@@ -1,57 +1,41 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NodeModel } from '@minoru/react-dnd-treeview';
-import { Body } from '../Typography';
-import { ColorPalette } from '@/styles/ColorPalette';
-import CaretRight from '@/assets/svg/CaretRight';
-import CategoryIcon from '@/assets/svg/CategoryIcon';
-import AddIcon from '@/assets/svg/AddIcon';
+import ArrowRightIcon from '@/assets/svg/ArrowRightIcon';
+import FilledCategoryIcon from '@/assets/svg/FilledCategoryIcon';
 import { Input } from '@/components/ui/input';
 import Done from '@/assets/svg/Done';
-
-export type CustomData = {
-  fileType: string;
-  fileSize: string;
-};
+import { Label } from '@/components/common/Typography';
+import { styles as BaseStyles, LeftSection, RightSection } from './style';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import MoreIcon from '@/assets/svg/MoreIcon';
+import FavoritesPopover from '../Popover/FavoritesPopover';
+import { NodeData } from '../Section/CategorySection';
 
 type Props = {
   node: NodeModel;
   depth: number;
   isOpen: boolean;
+  isFocused?: boolean;
   onToggle: (id: NodeModel['id']) => void;
-  onAdd: (parentId: NodeModel['id']) => void;
   onClick: (id: NodeModel['id']) => void;
-  onSubmitNewCategory: (name: string) => void;
-};
-
-const cssStyles = {
-  container: {
-    alignItems: 'center',
-    display: 'grid',
-    gridTemplateColumns: 'auto auto 1fr auto',
-    height: '32px',
-    paddingInlineEnd: '8px',
-    '&:hover': {
-      backgroundColor: ColorPalette.blue['000'],
-    },
-  },
 };
 
 const styles = {
   expandIconWrapper: {
     alignItems: 'center',
-    fontSize: '0',
     display: 'flex',
-    height: '24px',
     justifyContent: 'center',
-    width: '24px',
+    height: '16px',
+    width: '16px',
     transition: 'transform linear .1s',
     transform: 'rotate(0deg)',
   },
   expandIconWrapperOpened: {
     transform: 'rotate(90deg)',
-  },
-  labelGridItem: {
-    paddingInlineStart: '8px',
   },
   inputWrapper: {
     display: 'flex',
@@ -68,20 +52,13 @@ const styles = {
   },
 };
 
-function CategorySelectNode(props: Props) {
-  const indent = props.depth * 24;
+function CategoryItem(props: Props) {
   const [isHovered, setIsHovered] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
 
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
     props.onToggle(props.node.id);
-  };
-
-  const handleAdd = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    props.onAdd(props.node.id);
-    if (!props.isOpen) props.onToggle(props.node.id);
   };
 
   const submitName = (e: React.MouseEvent) => {
@@ -99,13 +76,8 @@ function CategorySelectNode(props: Props) {
     }
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-  };
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
 
   const nameInputRef = useRef<HTMLInputElement>(null);
   const handleNameChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -117,27 +89,28 @@ function CategorySelectNode(props: Props) {
 
   return (
     <div
-      css={{ ...cssStyles.container, paddingInlineStart: indent }}
+      css={{
+        ...BaseStyles.container,
+        paddingInlineStart: props.depth * 22 + 10,
+      }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => props.onClick(props.node.id)}
     >
-      <div
-        style={{
-          ...styles.expandIconWrapper,
-          ...(props.isOpen ? styles.expandIconWrapperOpened : {}),
-        }}
-      >
-        {props.node.droppable && (
-          <div onClick={handleToggle}>
-            <CaretRight />
-          </div>
-        )}
-      </div>
-      <div>
-        <CategoryIcon />
-      </div>
-      <div style={styles.labelGridItem}>
+      <LeftSection>
+        <div
+          style={{
+            ...styles.expandIconWrapper,
+            ...(props.isOpen ? styles.expandIconWrapperOpened : {}),
+          }}
+        >
+          {props.node.droppable && (
+            <div onClick={handleToggle}>
+              <ArrowRightIcon />
+            </div>
+          )}
+        </div>
+        <FilledCategoryIcon />
         {props.node.id === -1 ? (
           <div style={styles.inputWrapper}>
             <Input
@@ -151,16 +124,28 @@ function CategorySelectNode(props: Props) {
             <Done onClick={submitName} />
           </div>
         ) : (
-          <Body>{props.node.text}</Body>
+          <Label className="label-14-400">{props.node.text}</Label>
         )}
-      </div>
-      {isHovered && props.node.id !== -1 && (
-        <div style={styles.addIcon}>
-          <AddIcon onClick={handleAdd} />
-        </div>
+      </LeftSection>
+      {props.node.id !== -1 && (
+        <RightSection>
+          {isHovered && (
+            <Popover>
+              <PopoverTrigger>
+                <div>
+                  <MoreIcon />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent>
+                {/** 임시 */}
+                <FavoritesPopover id={1} />
+              </PopoverContent>
+            </Popover>
+          )}
+        </RightSection>
       )}
     </div>
   );
 }
 
-export default CategorySelectNode;
+export default CategoryItem;

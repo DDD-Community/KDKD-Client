@@ -53,7 +53,6 @@ const styles = {
 };
 
 function CategoryItem(props: Props) {
-  const indent = props.depth * 22 + 10;
   const [isHovered, setIsHovered] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
 
@@ -90,7 +89,10 @@ function CategoryItem(props: Props) {
 
   return (
     <div
-      css={{ ...BaseStyles.container, paddingInlineStart: indent }}
+      css={{
+        ...BaseStyles.container,
+        paddingInlineStart: props.depth * 22 + 10,
+      }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={() => props.onClick(props.node.id)}
@@ -144,6 +146,6 @@ function CategoryItem(props: Props) {
       )}
     </div>
   );
-};
+}
 
 export default CategoryItem;

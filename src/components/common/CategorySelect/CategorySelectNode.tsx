@@ -68,7 +68,7 @@ const styles = {
   },
 };
 
-const CategorySelectNode: React.FC<Props> = (props) => {
+function CategorySelectNode(props: Props) {
   const indent = props.depth * 24;
   const [isHovered, setIsHovered] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
@@ -161,6 +161,6 @@ const CategorySelectNode: React.FC<Props> = (props) => {
       )}
     </div>
   );
-};
+}
 
 export default CategorySelectNode;

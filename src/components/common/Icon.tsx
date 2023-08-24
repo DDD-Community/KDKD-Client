@@ -34,11 +34,11 @@ export const IconTable: Record<IconName, () => EmotionJSX.Element> = {
   OpenCategoryIcon: OpenCategoryIcon,
 };
 
-const Icon: React.FC<Props> = ({ name = 'MenuIcon' }: Props) => {
+function Icon({ name = 'MenuIcon' }: Props) {
   if (typeof IconTable[name] !== 'undefined') {
     return React.createElement(IconTable[name]);
   }
   return <MenuIcon />;
-};
+}
 
 export default Icon;

@@ -52,7 +52,7 @@ const styles = {
   },
 };
 
-const CategoryItem: React.FC<Props> = (props) => {
+function CategoryItem(props: Props) {
   const indent = props.depth * 22 + 10;
   const [isHovered, setIsHovered] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');

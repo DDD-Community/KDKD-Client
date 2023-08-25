@@ -64,7 +64,7 @@ function CategoryItem(props: Props) {
   const submitName = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (newCategoryName.trim().length > 0) {
-      props.onSubmitNewCategory(newCategoryName);
+      // props.onSubmitNewCategory(newCategoryName);
     }
   };
 
@@ -72,7 +72,7 @@ function CategoryItem(props: Props) {
     e,
   ) => {
     if (e.key === 'Enter' && newCategoryName.trim().length > 0) {
-      props.onSubmitNewCategory(newCategoryName);
+      // props.onSubmitNewCategory(newCategoryName);
     }
   };
 

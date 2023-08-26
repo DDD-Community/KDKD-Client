@@ -1,11 +1,24 @@
 import HStack from '@/components/common/Stack/HStack';
 import * as S from './styles';
 import SearchInput from '@/components/common/SearchInput';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import RecentlySearch from '@/components/Home/GNB/RecentlySearch';
+import { LayoutContext } from '@/Layout/Controller';
 
 function GNB() {
   const [isFocus, setIsFocus] = useState(false);
+
+  const { handleSearchClose, handleSearchOpen } = useContext(LayoutContext);
+
+  function handleFocus() {
+    setIsFocus(true);
+    handleSearchOpen();
+  }
+
+  function handleBlur() {
+    setIsFocus(false);
+    handleSearchClose();
+  }
 
   return (
     <>
@@ -15,8 +28,8 @@ function GNB() {
           <SearchInput
             width={isFocus ? '1060px' : '283px'}
             style={S.SearchInputStyle}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
         </S.InputWrapper>
         <HStack gap={16} style={{ width: 'auto' }}>

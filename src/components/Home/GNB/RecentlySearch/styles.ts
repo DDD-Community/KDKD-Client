@@ -9,6 +9,7 @@ const RecentlySearchWrapper = styled.div`
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   padding: 24px 32px;
+  z-index: 100;
 `;
 
 export default {

@@ -3,15 +3,21 @@ import { Input } from '../ui/input';
 import { CSSProperties } from 'react';
 
 interface Props {
+  width: string;
   style?: CSSProperties;
   onFocus?: () => void;
   onBlur?: () => void;
 }
 
-function SearchInput({ style, onFocus, onBlur }: Props) {
+function SearchInput({ width, style, onFocus, onBlur }: Props) {
   return (
     <div
-      style={{ position: 'relative', display: 'flex', alignItems: 'center' }}
+      style={{
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        width,
+      }}
     >
       <Input
         style={style}

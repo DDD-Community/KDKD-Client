@@ -10,6 +10,7 @@ function Stack({
   alignItems,
   gap,
   children,
+  style,
 }: Props) {
   return (
     <div
@@ -19,7 +20,7 @@ function Stack({
         justifyContent: justifyContent ?? 'flex-start',
         alignItems: alignItems ?? 'flex-start',
         gap: gap ?? 0,
-        width: '100%',
+        ...style,
       }}
     >
       {children}

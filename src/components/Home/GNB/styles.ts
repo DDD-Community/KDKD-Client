@@ -10,10 +10,13 @@ const GNBWrapper = styled.div`
   padding: 12px 80px;
 `;
 
-const InputWrapper = styled.div`
-  width: 1060px;
+const InputWrapper = styled.div<{ isFocus: boolean }>`
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
+  flex: 1;
+  margin-left: 290px;
+  width: ${(props) => (props.isFocus ? '1060px' : '283px')};
 
   &:focus {
     background-color: black !important;
@@ -27,10 +30,7 @@ const SearchInputStyle = {
   gap: '8px',
   borderRadius: '8px',
   backgroundColor: ColorPalette.gray['100'],
+  width: '100%',
 };
 
-export default {
-  GNBWrapper,
-  InputWrapper,
-  SearchInputStyle,
-};
+export { GNBWrapper, InputWrapper, SearchInputStyle };

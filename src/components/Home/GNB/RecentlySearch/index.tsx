@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import S from './styles';
 import VStack from '@/components/common/Stack/VStack';
 import HStack from '@/components/common/Stack/HStack';
@@ -6,15 +5,6 @@ import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
 
 function RecentlySearch() {
-  useEffect(() => {
-    document.getElementById('content').style.backgroundColor =
-      'rgba(0, 0, 0, 0.5)';
-
-    return () => {
-      document.getElementById('content').style.backgroundColor = 'white';
-    };
-  }, []);
-
   // TODO: 검색 API 연동 필요
 
   return (

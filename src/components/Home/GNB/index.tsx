@@ -4,6 +4,8 @@ import SearchInput from '@/components/common/SearchInput';
 import { useContext, useState } from 'react';
 import RecentlySearch from '@/components/Home/GNB/RecentlySearch';
 import { LayoutContext } from '@/Layout/Controller';
+import { Button } from '@/components/ui/button';
+import PersonIcon from '@/assets/svg/Person';
 
 function GNB() {
   const [isFocus, setIsFocus] = useState(false);
@@ -44,8 +46,12 @@ function GNB() {
           {isFocus && <RecentlySearch />}
         </div>
         <HStack gap={16} style={{ width: 'auto' }}>
-          <span>대충 프로필</span>
-          <span>대충 로그아웃</span>
+          <Button size="sm" variant="ghost">
+            <PersonIcon />
+          </Button>
+          <Button size="sm" variant="ghost">
+            로그아웃
+          </Button>
         </HStack>
       </S.GNBWrapper>
     </>

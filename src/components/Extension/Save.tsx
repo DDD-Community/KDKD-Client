@@ -11,10 +11,11 @@ import Home from '@/assets/svg/Home';
 import IsNotSaved from '@/assets/svg/IsNotSaved';
 import TagInput, { Tag } from '../common/TagInput';
 import { useForm, Controller } from 'react-hook-form';
+import CategorySelect from '../common/CategorySelect/CategorySelect';
 
 interface IFormInputs {
   urlTitle: string;
-  category: string; //temp
+  category: number | null;
   tags: Tag[];
   memo: string;
   saveForLater: boolean;
@@ -61,7 +62,6 @@ const styles = {
     paddingTop: '4xp',
     paddingLeft: '12px',
   },
-  footer: {},
 };
 
 function Save() {
@@ -71,16 +71,25 @@ function Save() {
 
   const defaultValues: IFormInputs = {
     urlTitle: '',
-    category: 'temp',
+    category: null,
     tags: [],
     memo: '',
     saveForLater: false,
   };
 
+  async function getCurrentTabUrl() {
+    const queryOptions = { active: true, lastFocusedWindow: true };
+    const [tab] = await chrome.tabs.query(queryOptions);
+    return tab?.url ?? '';
+  }
+
   useEffect(() => {
-    // 해당 페이지의 URL을 받아 URL 설정
-    // setUrl(현재 페이지의 URL)
-    defaultValues.urlTitle = url;
+    const setUrlTitle = async () => {
+      const currentUrl = await getCurrentTabUrl();
+      setUrl(currentUrl);
+      // TODO: URL에 대한 데이터 담아오는 API 요청
+    };
+    setUrlTitle();
   }, []);
 
   const {
@@ -133,7 +142,13 @@ function Save() {
             </section>
           </section>
           <UrlInfoSection label={'카테고리'}>
-            <Input placeholder="일단 임시방편 select 대신" />
+            <Controller
+              name="category"
+              control={control}
+              render={({ field: { onChange } }) => (
+                <CategorySelect onChange={onChange} />
+              )}
+            />
           </UrlInfoSection>
           <UrlInfoSection label={'태그'}>
             <Controller

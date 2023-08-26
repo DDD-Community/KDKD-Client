@@ -19,7 +19,7 @@ const manifest = {
         'https://www.googleapis.com/auth/userinfo.email',
       ],
     },
-    permissions: ['identity'],
+    permissions: ['identity', 'tabs'],
   },
 };
 

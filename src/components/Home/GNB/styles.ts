@@ -10,13 +10,11 @@ const GNBWrapper = styled.div`
   padding: 12px 80px;
 `;
 
-const InputWrapper = styled.div<{ isFocus: boolean }>`
+const InputWrapper = styled.div`
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  flex: 1;
-  margin-left: 290px;
-  width: ${(props) => (props.isFocus ? '1060px' : '283px')};
+  width: 100%;
 
   &:focus {
     background-color: black !important;

@@ -24,20 +24,30 @@ function GNB() {
     <>
       <S.GNBWrapper>
         <span>대충 로고</span>
-        <S.InputWrapper isFocus={isFocus}>
-          <SearchInput
-            width={isFocus ? '1060px' : '283px'}
-            style={S.SearchInputStyle}
-            onFocus={handleFocus}
-            onBlur={handleBlur}
-          />
-        </S.InputWrapper>
+        <div
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          tabIndex={0}
+          style={{
+            display: 'flex',
+            flex: 1,
+            marginLeft: '290px',
+            width: isFocus ? '1060px' : '283px',
+          }}
+        >
+          <S.InputWrapper>
+            <SearchInput
+              width={isFocus ? '1060px' : '283px'}
+              style={S.SearchInputStyle}
+            />
+          </S.InputWrapper>
+          {isFocus && <RecentlySearch />}
+        </div>
         <HStack gap={16} style={{ width: 'auto' }}>
           <span>대충 프로필</span>
           <span>대충 로그아웃</span>
         </HStack>
       </S.GNBWrapper>
-      {isFocus && <RecentlySearch />}
     </>
   );
 }

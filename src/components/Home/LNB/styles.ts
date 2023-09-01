@@ -6,7 +6,7 @@ const LNBWrapper = styled.div`
   height: calc(100vh - 64px);
   overflow-y: auto;
   padding: 10px 0 10px 80px;
-  background-color: ${ColorPalette.blue['000']};
+  background-color: ${ColorPalette.gray['000']};
 `;
 
 export default {

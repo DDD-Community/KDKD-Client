@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Fetcher } from 'swr';
 import useSWRMutation from 'swr/mutation';
 
 export const api = axios.create({

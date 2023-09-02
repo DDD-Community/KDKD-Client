@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { ColorPalette, gray } from '@/styles/ColorPalette';
 import UrlInfoSection from './UrlInfoSection';
 import { Input } from '@/components/ui/input';
-import { Select } from '../ui/select';
 import { Textarea } from '../ui/textarea';
 import { Button } from '../ui/button';
 import { Label } from '../common/Typography';
@@ -12,6 +11,8 @@ import IsNotSaved from '@/assets/svg/IsNotSaved';
 import TagInput, { Tag } from '../common/TagInput';
 import { useForm, Controller } from 'react-hook-form';
 import CategorySelect from '../common/CategorySelect/CategorySelect';
+import useSWR from 'swr';
+import { fetcher, fetcherWithParams } from '@/api';
 
 interface IFormInputs {
   urlTitle: string;
@@ -65,9 +66,12 @@ const styles = {
 };
 
 function Save() {
-  const [url, setUrl] = useState(
-    'https://www.default.com/hi-this-is-default-url',
+  const [url, setUrl] = useState('www.naver.com');
+  const { data: urls } = useSWR(
+    ['/urls', `?address=${url}`],
+    fetcherWithParams,
   );
+  const { data: me } = useSWR('members/me', fetcher);
 
   const defaultValues: IFormInputs = {
     urlTitle: '',

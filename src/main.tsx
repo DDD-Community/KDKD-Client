@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import { SWRConfig } from 'swr';
+import { fetcher } from './api';
 
 const router = createBrowserRouter([
   {
@@ -20,8 +22,10 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
+    <SWRConfig value={{ fetcher }}>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </SWRConfig>
   </React.StrictMode>,
 );

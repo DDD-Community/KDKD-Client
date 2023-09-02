@@ -12,7 +12,7 @@ import TagInput, { Tag } from '../common/TagInput';
 import { useForm, Controller } from 'react-hook-form';
 import CategorySelect from '../common/CategorySelect/CategorySelect';
 import useSWR from 'swr';
-import { fetcher, fetcherWithParams } from '@/api';
+import { fetcherWithParams, fetcherWithToken } from '@/api/extension';
 
 interface IFormInputs {
   urlTitle: string;
@@ -71,7 +71,7 @@ function Save() {
     ['/urls', `?address=${url}`],
     fetcherWithParams,
   );
-  const { data: me } = useSWR('members/me', fetcher);
+  const { data: me } = useSWR('members/me', fetcherWithToken);
 
   const defaultValues: IFormInputs = {
     urlTitle: '',

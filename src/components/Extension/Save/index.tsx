@@ -1,18 +1,19 @@
 import { useEffect, useState } from 'react';
 import { ColorPalette, gray } from '@/styles/ColorPalette';
-import UrlInfoSection from './UrlInfoSection';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '../ui/textarea';
-import { Button } from '../ui/button';
-import { Label } from '../common/Typography';
-import defaultUrlOGImage from '@/assets/images/defaultUrlOGImage.png';
 import Home from '@/assets/svg/Home';
+import defaultUrlOGImage from '@/assets/images/defaultUrlOGImage.png';
 import IsNotSaved from '@/assets/svg/IsNotSaved';
-import TagInput, { Tag } from '../common/TagInput';
-import { useForm, Controller } from 'react-hook-form';
-import CategorySelect from '../common/CategorySelect/CategorySelect';
+import { Controller, useForm } from 'react-hook-form';
 import useSWR from 'swr';
-import { fetcher, fetcherWithParams } from '@/api';
+import { fetcherWithParams } from '@/api';
+import TagInput, { Tag } from '@/components/common/TagInput';
+import { Textarea } from '@/components/ui/textarea';
+import UrlInfoSection from '@/components/Extension/UrlInfoSection';
+import { Label } from '@/components/common/Typography';
+import { Button } from '@/components/ui/button';
+import CategorySelect from '@/components/common/CategorySelect/CategorySelect';
+import { UrlDetailResponse } from '@/components/Extension/Save/types';
 
 interface IFormInputs {
   urlTitle: string;
@@ -65,14 +66,14 @@ const styles = {
   },
 };
 
-function Save() {
+function Index() {
   const [url, setUrl] = useState('www.naver.com');
-  const { data: urls } = useSWR(
+  const { data: urlDetail }: { data: UrlDetailResponse } = useSWR(
     ['/urls', `?address=${url}`],
     fetcherWithParams,
   );
-  const { data: me } = useSWR('members/me', fetcher);
 
+  // const { data: me } = useSWR('members/me', fetcher);
   const defaultValues: IFormInputs = {
     urlTitle: '',
     category: null,
@@ -121,7 +122,7 @@ function Save() {
           <section style={styles.urlSection}>
             <img
               style={{ width: '70px', height: '70px' }}
-              src={defaultUrlOGImage}
+              src={urlDetail.thumbnail ?? defaultUrlOGImage}
               alt="Page Og Image"
             />
             <section style={styles.urlRightSection}>
@@ -135,6 +136,7 @@ function Save() {
                   placeholder="URL 제목을 입력하세요."
                   {...register('urlTitle', {
                     required: true,
+                    value: urlDetail.isSaved ? urlDetail.name : '',
                   })}
                 />
                 {errors.urlTitle && (
@@ -150,6 +152,7 @@ function Save() {
               name="category"
               control={control}
               render={({ field: { onChange } }) => (
+                // TODO: 카테고리 id 넣기
                 <CategorySelect onChange={onChange} />
               )}
             />
@@ -159,18 +162,24 @@ function Save() {
               name="tags"
               control={control}
               render={({ field: { onChange } }) => (
+                // TODO: tag 데이터 넣기
                 <TagInput onChange={onChange} />
               )}
             />
           </UrlInfoSection>
           <UrlInfoSection label={'메모'}>
             <Textarea
-              {...register('memo')}
+              {...register('memo', {
+                value: urlDetail.isSaved ? urlDetail.memo : '',
+              })}
               placeholder="메모 입력이 가능합니다."
             />
           </UrlInfoSection>
           <section style={{ display: 'flex', gap: '9px' }}>
-            <input {...register('saveForLater')} type="checkbox" />
+            <input
+              {...register('saveForLater', { value: urlDetail.isWatchedLater })}
+              type="checkbox"
+            />
             <Label style={{ color: ColorPalette.gray[700] }}>
               나중에 볼 URL에 저장
             </Label>
@@ -189,4 +198,4 @@ function Save() {
   );
 }
 
-export default Save;
+export default Index;

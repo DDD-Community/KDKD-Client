@@ -43,6 +43,13 @@ export const ColorPalette = {
     '01': 'linear-gradient(#0643F1, #7297FF)',
     '02': 'linear-gradient(#0643F1, #72D5FF)',
   },
+  alpha: {
+    '01-08': 'rgba(29, 41, 57, 0.08)',
+    '02-12': 'rgba(29, 41, 57, 0.12)',
+    '03-16': 'rgba(29, 41, 57, 0.16)',
+    '04-20': 'rgba(29, 41, 57, 0.20)',
+    'dim-60': 'rgba(29, 41, 57, 0.60)',
+  },
 };
 
 export const {

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { ColorPalette } from '@/styles/ColorPalette';
 
-export const focusedStyle = {
+export const selectedStyle = {
   backgroundColor: ColorPalette.blue[100],
   span: {
     fontWeight: '600',
@@ -25,7 +25,7 @@ export const styles = {
     cursor: 'pointer',
 
     '&:hover': {
-      ...focusedStyle,
+      ...selectedStyle,
     },
   },
 };

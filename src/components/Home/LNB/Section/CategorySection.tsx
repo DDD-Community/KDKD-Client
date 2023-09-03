@@ -13,15 +13,20 @@ import {
 import SampleData from '@/components/common/sample_data.json';
 import CategoryItem from '../Items/CategoryItem';
 
+interface Props {
+  selectedItem: string | null;
+  onItemClick: (item: string) => void;
+}
+
 export type NodeData = {
   count?: number;
 };
 
-function CategorySection() {
+function CategorySection({ selectedItem, onItemClick }: Props) {
   const [treeData, setTreeData] = useState<NodeModel[]>(SampleData);
   const handleDrop = (newTree: NodeModel[]) => setTreeData(newTree);
 
-  const handleSelect = () => {};
+  const handleSelect = (id: number) => onItemClick(`Category/${id}`);
 
   return (
     <VStack>
@@ -40,7 +45,8 @@ function CategorySection() {
                   depth={depth}
                   isOpen={isOpen}
                   onToggle={onToggle}
-                  onClick={handleSelect}
+                  onClick={() => handleSelect(Number(node.id))}
+                  isSelected={selectedItem === `Category/${node.id}`}
                 />
               )}
               dragPreviewRender={(monitorProps) => (

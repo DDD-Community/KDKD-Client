@@ -70,10 +70,7 @@ function Index() {
   const [url, setUrl] = useState('www.naver.com');
   const { data: urlDetail }: { data: UrlDetailResponse } = useSWR(
     ['/urls', `?address=${url}`],
-    ([url, params]) => {
-      console.log('url, pra', url, params);
-      return fetcher(url, params);
-    },
+    ([url, params]) => fetcher(url, params),
   );
 
   const defaultValues: IFormInputs = {

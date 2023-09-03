@@ -4,7 +4,7 @@ import VStack from '@/components/common/Stack/VStack';
 import HStack from '@/components/common/Stack/HStack';
 import { Headline } from '@/components/common/Typography';
 import UrlCard from '../UrlCard';
-import { fetcherWithParams } from '@/api';
+import { fetcher } from '@/api';
 import S from './styles';
 
 export interface UrlInfo {
@@ -33,7 +33,7 @@ function SearchResult() {
       'urls',
       `?categoryId=${categoryId}&urlKeyword=${urlKeyword}&isWatched=${isWatched}&order=${order}&pageNo=${pageNo}&pageSize=${pageSize}`,
     ],
-    fetcherWithParams,
+    ([url, params]: string[]) => fetcher(url, params),
   );
 
   return (

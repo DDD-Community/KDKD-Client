@@ -5,25 +5,11 @@ export const api = axios.create({
   baseURL: import.meta.env.VITE_SERVER_BASE_URL,
 });
 
-export const fetcher = (url: string) => api.get(url).then((res) => res.data);
-
-export const fetcherWithToken = (url: string) => {
+export const fetcher = (url: string, params = '') => {
   const [cookies] = useCookies(['accessToken']);
-  return api
-    .get(url, {
-      headers: {
-        ...(cookies.accessToken && {
-          Authorization: `Bearer ${cookies.accessToken}`,
-        }),
-      },
-    })
-    .then((res) => res.data);
-};
 
-export const fetcherWithParams = ([url, params]: string[]) => {
-  const [cookies] = useCookies(['accessToken']);
   return api
-    .get(`${url}${params}`, {
+    .get(url + params, {
       headers: {
         ...(cookies.accessToken && {
           Authorization: `Bearer ${cookies.accessToken}`,

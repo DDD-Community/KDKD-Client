@@ -1,18 +1,21 @@
 import axios from 'axios';
-import { useCookies } from 'react-cookie';
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_SERVER_BASE_URL,
 });
 
-export const fetcher = (url: string, params = '') => {
-  const [cookies] = useCookies(['accessToken']);
+export const fetcher = async (url: string, params = '') => {
+  const [accessTokenCookie] = await chrome.cookies.getAll({
+    name: 'accessToken',
+  });
+
+  console.log('fetcher', url, params);
 
   return api
     .get(url + params, {
       headers: {
-        ...(cookies.accessToken && {
-          Authorization: `Bearer ${cookies.accessToken}`,
+        ...(accessTokenCookie.value.length > 0 && {
+          Authorization: `Bearer ${accessTokenCookie.value}`,
         }),
       },
     })

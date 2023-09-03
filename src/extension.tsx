@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import Main from './components/Extension/Main';
 import './global.scss';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
-import { SWRConfig } from 'swr';
-import { fetcher } from './api';
-import Save from '@/components/Extension/Save';
 
 ReactDOM.createRoot(document.getElementById('extension') as HTMLElement).render(
   <React.StrictMode>
-    <SWRConfig value={{ fetcher }}>
-      <Provider store={store}>
-        <Save />
-        {/* <GoogleLogin /> */}
-      </Provider>
-    </SWRConfig>
+    <Provider store={store}>
+      <Main />
+    </Provider>
   </React.StrictMode>,
 );

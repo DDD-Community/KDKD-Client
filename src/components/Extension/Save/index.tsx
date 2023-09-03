@@ -6,7 +6,7 @@ import defaultUrlOGImage from '@/assets/images/defaultUrlOGImage.png';
 import IsNotSaved from '@/assets/svg/IsNotSaved';
 import { Controller, useForm } from 'react-hook-form';
 import useSWR from 'swr';
-import { fetcherWithParams } from '@/api';
+import { fetcher } from '@/api/extension';
 import TagInput, { Tag } from '@/components/common/TagInput';
 import { Textarea } from '@/components/ui/textarea';
 import UrlInfoSection from '@/components/Extension/UrlInfoSection';
@@ -70,10 +70,12 @@ function Index() {
   const [url, setUrl] = useState('www.naver.com');
   const { data: urlDetail }: { data: UrlDetailResponse } = useSWR(
     ['/urls', `?address=${url}`],
-    fetcherWithParams,
+    ([url, params]) => {
+      console.log('url, pra', url, params);
+      return fetcher(url, params);
+    },
   );
 
-  // const { data: me } = useSWR('members/me', fetcher);
   const defaultValues: IFormInputs = {
     urlTitle: '',
     category: null,
@@ -122,7 +124,7 @@ function Index() {
           <section style={styles.urlSection}>
             <img
               style={{ width: '70px', height: '70px' }}
-              src={urlDetail.thumbnail ?? defaultUrlOGImage}
+              src={urlDetail?.thumbnail ?? defaultUrlOGImage}
               alt="Page Og Image"
             />
             <section style={styles.urlRightSection}>
@@ -136,7 +138,7 @@ function Index() {
                   placeholder="URL 제목을 입력하세요."
                   {...register('urlTitle', {
                     required: true,
-                    value: urlDetail.isSaved ? urlDetail.name : '',
+                    value: urlDetail?.isSaved ? urlDetail?.name : '',
                   })}
                 />
                 {errors.urlTitle && (
@@ -170,14 +172,14 @@ function Index() {
           <UrlInfoSection label={'메모'}>
             <Textarea
               {...register('memo', {
-                value: urlDetail.isSaved ? urlDetail.memo : '',
+                value: urlDetail?.isSaved ? urlDetail?.memo : '',
               })}
               placeholder="메모 입력이 가능합니다."
             />
           </UrlInfoSection>
           <section style={{ display: 'flex', gap: '9px' }}>
             <input
-              {...register('saveForLater', { value: urlDetail.isWatchedLater })}
+              {...register('saveForLater', { value: urlDetail?.isWatchedLater })}
               type="checkbox"
             />
             <Label style={{ color: ColorPalette.gray[700] }}>

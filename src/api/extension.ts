@@ -9,6 +9,8 @@ export const fetcher = async (url: string, params = '') => {
     name: 'accessToken',
   });
 
+  console.log('fetcher', url, params);
+
   return api
     .get(url + params, {
       headers: {

@@ -1,5 +1,5 @@
 import GoogleLogin from './GoogleLogin';
-import Save from './Save';
+import Save from './Save/index';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 

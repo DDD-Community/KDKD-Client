@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
@@ -23,10 +24,16 @@ export type NodeData = {
 };
 
 function CategorySection({ selectedItem, onItemClick }: Props) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [treeData, setTreeData] = useState<NodeModel[]>(SampleData);
   const handleDrop = (newTree: NodeModel[]) => setTreeData(newTree);
 
-  const handleSelect = (id: number) => onItemClick(`Category/${id}`);
+  const handleSelect = (id: number) => {
+    onItemClick(`Category/${id}`);
+    searchParams.set('categoryId', id.toString());
+    setSearchParams(searchParams);
+  };
 
   return (
     <VStack>

@@ -1,3 +1,4 @@
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import MenuIcon from '@/assets/svg/MenuIcon';
 import MenuItem from '../Items/MenuItem';
 import { Label } from '@/components/common/Typography';
@@ -11,25 +12,35 @@ interface Props {
 }
 
 function MenuSection({ selectedItem, onItemClick }: Props) {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+
   return (
     <VStack>
       <MenuItem
-        onClick={() => onItemClick('Menu/전체 카테고리')}
-        isSelected={selectedItem === 'Menu/전체 카테고리'}
+        onClick={() => {
+          onItemClick('전체 카테고리');
+          setSearchParams('');
+        }}
+        isSelected={selectedItem === '전체 카테고리'}
       >
         <MenuIcon />
         <Label className="label-14-400">전체 카테고리</Label>
       </MenuItem>
       <MenuItem
-        onClick={() => onItemClick('Menu/미분류 URL')}
-        isSelected={selectedItem === 'Menu/미분류 URL'}
+        onClick={() => onItemClick('uncategorized')}
+        isSelected={selectedItem === 'uncategorized'}
       >
         <FolderAlertIcon />
         <Label className="label-14-400">미분류 URL</Label>
       </MenuItem>
       <MenuItem
-        onClick={() => onItemClick('Menu/휴지통')}
-        isSelected={selectedItem === 'Menu/휴지통'}
+        onClick={() => {
+          onItemClick('trash');
+          navigate({ pathname: '/trash' });
+        }}
+        isSelected={location.pathname === 'trash'}
       >
         <BinIcon />
         <Label className="label-14-400">휴지통</Label>

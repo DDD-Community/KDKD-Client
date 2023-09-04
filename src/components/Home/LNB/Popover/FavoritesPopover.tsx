@@ -2,7 +2,7 @@ import BinIcon from '@/assets/svg/BinIcon';
 import MemoIcon from '@/assets/svg/MemoIcon';
 import StarIcon from '@/assets/svg/StarIcon';
 import { Label } from '@/components/common/Typography';
-import { PopoverContainer, PopoverContentItem } from './style';
+import S from './style';
 
 interface Props {
   id: number;
@@ -10,20 +10,20 @@ interface Props {
 
 function FavoritesPopover({ id }: Props) {
   return (
-    <PopoverContainer>
-      <PopoverContentItem>
+    <S.PopoverContainer>
+      <S.PopoverContentItem>
         <StarIcon />
         <Label>즐겨찾기 해제</Label>
-      </PopoverContentItem>
-      <PopoverContentItem>
+      </S.PopoverContentItem>
+      <S.PopoverContentItem>
         <MemoIcon />
         <Label>카테고리 이름 수정</Label>
-      </PopoverContentItem>
-      <PopoverContentItem>
+      </S.PopoverContentItem>
+      <S.PopoverContentItem>
         <BinIcon />
         <Label>카테고리 삭제</Label>
-      </PopoverContentItem>
-    </PopoverContainer>
+      </S.PopoverContentItem>
+    </S.PopoverContainer>
   );
 }
 

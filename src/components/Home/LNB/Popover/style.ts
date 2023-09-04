@@ -1,11 +1,11 @@
 import { ColorPalette } from '@/styles/ColorPalette';
 import styled from '@emotion/styled';
 
-export const PopoverContainer = styled.div`
+const PopoverContainer = styled.div`
   padding: 4px;
 `;
 
-export const PopoverContentItem = styled.div`
+const PopoverContentItem = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
@@ -17,3 +17,8 @@ export const PopoverContentItem = styled.div`
     background-color: ${ColorPalette.gray[100]};
   }
 `;
+
+export default {
+  PopoverContainer,
+  PopoverContentItem,
+};

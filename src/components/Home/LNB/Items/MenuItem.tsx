@@ -1,6 +1,6 @@
 import { Label } from '@/components/common/Typography';
 import { PropsWithChildren } from 'react';
-import { styles, selectedStyle, LeftSection, RightSection } from './style';
+import S, { styles, selectedStyle } from './style';
 
 interface Props {
   count?: number;
@@ -19,10 +19,10 @@ function MenuItem({
       css={{ ...styles.container, ...(isSelected ? selectedStyle : {}) }}
       onClick={onClick}
     >
-      <LeftSection>{children}</LeftSection>
-      <RightSection>
+      <S.LeftSection>{children}</S.LeftSection>
+      <S.RightSection>
         <Label className="label-12-400">{count}</Label>
-      </RightSection>
+      </S.RightSection>
     </div>
   );
 }

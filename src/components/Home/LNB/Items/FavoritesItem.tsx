@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import FavoritesPopover from '../Popover/FavoritesPopover';
-import { styles, selectedStyle, LeftSection, RightSection } from './style';
+import S, { styles, selectedStyle } from './style';
 
 interface Props {
   count?: number;
@@ -33,8 +33,8 @@ function FavoritesItem({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <LeftSection>{children}</LeftSection>
-      <RightSection>
+      <S.LeftSection>{children}</S.LeftSection>
+      <S.RightSection>
         {isHovered ? (
           <Popover>
             <PopoverTrigger asChild>
@@ -49,7 +49,7 @@ function FavoritesItem({
         ) : (
           <Label className="label-12-400">{count}</Label>
         )}
-      </RightSection>
+      </S.RightSection>
     </div>
   );
 }

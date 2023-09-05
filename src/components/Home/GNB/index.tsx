@@ -1,29 +1,60 @@
 import HStack from '@/components/common/Stack/HStack';
-import S from './styles';
+import * as S from './styles';
 import SearchInput from '@/components/common/SearchInput';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import RecentlySearch from '@/components/Home/GNB/RecentlySearch';
+import { LayoutContext } from '@/Layout/Controller';
+import { Button } from '@/components/ui/button';
+import PersonIcon from '@/assets/svg/Person';
 
 function GNB() {
   const [isFocus, setIsFocus] = useState(false);
 
+  const { handleSearchClose, handleSearchOpen } = useContext(LayoutContext);
+
+  function handleFocus() {
+    setIsFocus(true);
+    handleSearchOpen();
+  }
+
+  function handleBlur() {
+    setIsFocus(false);
+    handleSearchClose();
+  }
+
   return (
-    <S.GNBWrapper>
-      <span>대충 로고</span>
-      <S.InputWrapper>
-        <SearchInput
+    <>
+      <S.GNBWrapper>
+        <span>대충 로고</span>
+        <div
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          tabIndex={0}
           style={{
-            ...S.SearchInputStyle,
-            width: isFocus ? '1175px' : '283px',
+            display: 'flex',
+            flex: 1,
+            marginLeft: '290px',
+            width: isFocus ? '1060px' : '283px',
           }}
-          onFocus={() => setIsFocus(true)}
-          onBlur={() => setIsFocus(false)}
-        />
-      </S.InputWrapper>
-      <HStack gap={16}>
-        <span>대충 프로필</span>
-        <span>대충 로그아웃</span>
-      </HStack>
-    </S.GNBWrapper>
+        >
+          <S.InputWrapper>
+            <SearchInput
+              width={isFocus ? '1060px' : '283px'}
+              style={S.SearchInputStyle}
+            />
+          </S.InputWrapper>
+          {isFocus && <RecentlySearch />}
+        </div>
+        <HStack gap={16} style={{ width: 'auto' }}>
+          <Button size="sm" variant="ghost">
+            <PersonIcon />
+          </Button>
+          <Button size="sm" variant="ghost">
+            로그아웃
+          </Button>
+        </HStack>
+      </S.GNBWrapper>
+    </>
   );
 }
 

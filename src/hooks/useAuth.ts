@@ -12,6 +12,10 @@ interface LoginResponse {
 
 export default function useAuth() {
   const dispatch = useDispatch();
+  const [cookies, setCookie, removeCookie] = useCookies([
+    'accessToken',
+    'refreshToken',
+  ]);
 
   const login = async (googleIdToken: string) => {
     if (!googleIdToken) {
@@ -23,8 +27,6 @@ export default function useAuth() {
         loginId: 'choo000407',
         password: '1234',
       });
-
-      const [cookies, setCookie] = useCookies(['accessToken', 'refreshToken']);
       setCookie('accessToken', res.data.accessToken);
       setCookie('refreshToken', res.data.refreshToken);
       dispatch(setIsLoggedIn(true));
@@ -34,10 +36,6 @@ export default function useAuth() {
   };
 
   const logout = () => {
-    const [cookies, setCookie, removeCookie] = useCookies([
-      'accessToken',
-      'refreshToken',
-    ]);
     removeCookie('accessToken');
     removeCookie('accessToken');
     dispatch(setIsLoggedIn(false));

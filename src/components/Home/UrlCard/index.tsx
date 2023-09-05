@@ -2,8 +2,7 @@ import HStack from '@/components/common/Stack/HStack';
 import { UrlInfo } from '../SearchResult';
 import S from './styles';
 import VStack from '@/components/common/Stack/VStack';
-import { Label, Title } from '@/components/common/Typography';
-import { ColorPalette } from '@/styles/ColorPalette';
+import { Label } from '@/components/common/Typography';
 import MainContent from './MainContent';
 import { useState } from 'react';
 import BinIcon from '@/assets/svg/BinIcon';
@@ -31,7 +30,13 @@ function UrlCard({ urlInfo }: Props) {
       onMouseLeave={handleMouseLeave}
     >
       <HStack gap={16}>
-        <S.Image />
+        <S.Image
+          src={
+            urlInfo.thumbnail === ''
+              ? 'src/assets/images/defaultUrlOGImage.png'
+              : urlInfo.thumbnail
+          }
+        />
         <VStack gap={8}>
           <MainContent urlInfo={urlInfo} />
           <S.Divider />

@@ -176,7 +176,9 @@ function Index() {
           </UrlInfoSection>
           <section style={{ display: 'flex', gap: '9px' }}>
             <input
-              {...register('saveForLater', { value: urlDetail?.isWatchedLater })}
+              {...register('saveForLater', {
+                value: urlDetail?.isWatchedLater,
+              })}
               type="checkbox"
             />
             <Label style={{ color: ColorPalette.gray[700] }}>

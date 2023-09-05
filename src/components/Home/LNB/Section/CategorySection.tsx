@@ -15,28 +15,31 @@ import VStack from '@/components/common/Stack/VStack';
 import CategoryItem from '../Items/CategoryItem';
 import { ColorPalette } from '@/styles/ColorPalette';
 import CssStyles from './CategorySection.module.css';
+import SampleData from '@/components/common/sample_data.json';
+import { useState } from 'react';
 
 interface Props {
   selectedItem: string | null;
   onItemClick: (item: string) => void;
 }
 
-export type NodeData = {
-  count?: number;
+export type CustomData = {
+  order: number;
 };
 
 function CategorySection({ selectedItem, onItemClick }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const cookies = new Cookies();
 
-  const {
-    data: treeData,
-    isLoading,
-    mutate,
-  } = useSWR<NodeModel[]>('/categories', fetcher);
+  const [treeData, setTreeData] = useState(SampleData);
+  // const {
+  //   data: treeData,
+  //   isLoading,
+  //   mutate,
+  // } = useSWR<NodeModel[]>('/categories', fetcher);
 
   const handleDrop = (
-    newTree: NodeModel[],
+    newTree: NodeModel<CustomData>[],
     { dragSourceId, dropTargetId, dragSource, dropTarget }: DropOptions,
   ) => {
     console.log(
@@ -46,7 +49,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
       dragSource,
       dropTarget,
     );
-    mutate([...newTree]);
+    // mutate([...newTree]);
   };
 
   const handleSelect = (id: number) => {
@@ -55,12 +58,12 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     setSearchParams(searchParams);
   };
 
-  const handleAddFavorites = (id: NodeModel['id']) => {
+  const handleAddFavorites = (id: NodeModel<CustomData>['id']) => {
     console.log('handleAddFavorites', id);
   };
 
   const handleChangeName = async (
-    id: NodeModel['id'],
+    id: NodeModel<CustomData>['id'],
     newCategoryName: string,
   ) => {
     if (!treeData) return;
@@ -86,10 +89,10 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
       },
     );
 
-    mutate([...newTree]);
+    // mutate([...newTree]);
   };
 
-  const handleDeleteCategory = (id: NodeModel['id']) => {
+  const handleDeleteCategory = (id: NodeModel<CustomData>['id']) => {
     console.log('handleDeleteCategory', id);
   };
 
@@ -105,7 +108,10 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
               <Tree
                 tree={treeData}
                 rootId={0}
-                render={(node: NodeModel, { depth, isOpen, onToggle }) => (
+                render={(
+                  node: NodeModel<CustomData>,
+                  { depth, isOpen, onToggle },
+                ) => (
                   <CategoryItem
                     node={node}
                     depth={depth}

@@ -13,9 +13,10 @@ import {
 } from '@/components/ui/popover';
 import MoreIcon from '@/assets/svg/MoreIcon';
 import CategoryPopover from '../Popover/CategoryPopover';
+import { CustomData } from '../Section/CategorySection';
 
 type Props = {
-  node: NodeModel;
+  node: NodeModel<CustomData>;
   depth: number;
   isOpen: boolean;
   isSelected: boolean;

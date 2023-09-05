@@ -11,11 +11,11 @@ interface Props {
 
 function FavoritesSection({ selectedItem, onItemClick }: Props) {
   return (
-    <VStack gap={8}>
+    <VStack gap={8} style={{ width: '100%' }}>
       <Label className="label-12-600" style={{ color: ColorPalette.gray[500] }}>
         즐겨찾기
       </Label>
-      <VStack>
+      <VStack style={{ width: '100%' }}>
         <FavoritesItem
           onClick={() => onItemClick(`Favorites/${1}`)}
           isSelected={selectedItem === `Favorites/${1}`}

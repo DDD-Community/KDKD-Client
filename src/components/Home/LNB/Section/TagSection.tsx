@@ -11,11 +11,11 @@ interface Props {
 
 function TagSection({ selectedItem, onItemClick }: Props) {
   return (
-    <VStack gap={8}>
+    <VStack gap={8} style={{ width: '100%' }}>
       <Label className="label-12-600" style={{ color: ColorPalette.gray[500] }}>
         태그
       </Label>
-      <VStack>
+      <VStack style={{ width: '100%' }}>
         <TagItem
           onClick={() => onItemClick('Tag/사이드 프로젝트')}
           isSelected={selectedItem === 'Tag/사이드 프로젝트'}

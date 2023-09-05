@@ -85,7 +85,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
   };
 
   return (
-    <VStack>
+    <VStack style={{ width: '100%' }}>
       <Label className="label-12-600" style={{ color: ColorPalette.gray[500] }}>
         카테고리
       </Label>

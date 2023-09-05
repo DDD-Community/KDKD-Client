@@ -17,7 +17,7 @@ function MenuSection({ selectedItem, onItemClick }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   return (
-    <VStack>
+    <VStack style={{ width: '100%' }}>
       <MenuItem
         onClick={() => {
           onItemClick('전체 카테고리');

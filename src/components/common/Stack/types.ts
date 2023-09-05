@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { CSSProperties, ReactNode } from 'react';
 
 export interface StackProps {
   children: ReactNode;
@@ -11,4 +11,5 @@ export interface StackProps {
     | 'space-evenly';
   alignItems?: 'center' | 'flex-start' | 'flex-end' | 'stretch' | 'baseline';
   gap?: number;
+  style?: CSSProperties;
 }

@@ -7,13 +7,14 @@ const GNBWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 9px 80px 15px;
+  padding: 12px 80px;
 `;
 
 const InputWrapper = styled.div`
-  width: 1175px;
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
 
   &:focus {
     background-color: black !important;
@@ -27,10 +28,7 @@ const SearchInputStyle = {
   gap: '8px',
   borderRadius: '8px',
   backgroundColor: ColorPalette.gray['100'],
+  width: '100%',
 };
 
-export default {
-  GNBWrapper,
-  InputWrapper,
-  SearchInputStyle,
-};
+export { GNBWrapper, InputWrapper, SearchInputStyle };

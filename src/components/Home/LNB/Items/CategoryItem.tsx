@@ -5,7 +5,12 @@ import FilledCategoryIcon from '@/assets/svg/FilledCategoryIcon';
 import { Input } from '@/components/ui/input';
 import Done from '@/assets/svg/Done';
 import { Label } from '@/components/common/Typography';
-import { styles as BaseStyles, LeftSection, RightSection } from './style';
+import {
+  styles as BaseStyles,
+  LeftSection,
+  RightSection,
+  selectedStyle,
+} from './style';
 import {
   Popover,
   PopoverContent,
@@ -19,7 +24,7 @@ type Props = {
   node: NodeModel;
   depth: number;
   isOpen: boolean;
-  isFocused?: boolean;
+  isSelected: boolean;
   onToggle: (id: NodeModel['id']) => void;
   onClick: (id: NodeModel['id']) => void;
 };
@@ -64,7 +69,7 @@ function CategoryItem(props: Props) {
   const submitName = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (newCategoryName.trim().length > 0) {
-      props.onSubmitNewCategory(newCategoryName);
+      // props.onSubmitNewCategory(newCategoryName);
     }
   };
 
@@ -72,7 +77,7 @@ function CategoryItem(props: Props) {
     e,
   ) => {
     if (e.key === 'Enter' && newCategoryName.trim().length > 0) {
-      props.onSubmitNewCategory(newCategoryName);
+      // props.onSubmitNewCategory(newCategoryName);
     }
   };
 
@@ -92,6 +97,7 @@ function CategoryItem(props: Props) {
       css={{
         ...BaseStyles.container,
         paddingInlineStart: props.depth * 22 + 10,
+        ...(props.isSelected ? selectedStyle : {}),
       }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

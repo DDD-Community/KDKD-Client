@@ -7,17 +7,17 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import FavoritesPopover from '../Popover/FavoritesPopover';
-import { styles, focusedStyle, LeftSection, RightSection } from './style';
+import { styles, selectedStyle, LeftSection, RightSection } from './style';
 
 interface Props {
   count?: number;
-  isFocused?: boolean;
+  isSelected: boolean;
   onClick?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 function FavoritesItem({
   count = 0,
-  isFocused = false,
+  isSelected = false,
   onClick,
   children,
 }: PropsWithChildren<Props>) {
@@ -28,7 +28,7 @@ function FavoritesItem({
 
   return (
     <div
-      css={{ ...styles.container, ...(isFocused ? focusedStyle : {}) }}
+      css={{ ...styles.container, ...(isSelected ? selectedStyle : {}) }}
       onClick={onClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

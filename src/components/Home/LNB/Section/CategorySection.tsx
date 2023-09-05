@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DndProvider } from 'react-dnd';
 import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
@@ -13,15 +14,26 @@ import {
 import SampleData from '@/components/common/sample_data.json';
 import CategoryItem from '../Items/CategoryItem';
 
+interface Props {
+  selectedItem: string | null;
+  onItemClick: (item: string) => void;
+}
+
 export type NodeData = {
   count?: number;
 };
 
-function CategorySection() {
+function CategorySection({ selectedItem, onItemClick }: Props) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [treeData, setTreeData] = useState<NodeModel[]>(SampleData);
   const handleDrop = (newTree: NodeModel[]) => setTreeData(newTree);
 
-  const handleSelect = () => {};
+  const handleSelect = (id: number) => {
+    onItemClick(`Category/${id}`);
+    searchParams.set('categoryId', id.toString());
+    setSearchParams(searchParams);
+  };
 
   return (
     <VStack>
@@ -40,7 +52,8 @@ function CategorySection() {
                   depth={depth}
                   isOpen={isOpen}
                   onToggle={onToggle}
-                  onClick={handleSelect}
+                  onClick={() => handleSelect(Number(node.id))}
+                  isSelected={selectedItem === `Category/${node.id}`}
                 />
               )}
               dragPreviewRender={(monitorProps) => (

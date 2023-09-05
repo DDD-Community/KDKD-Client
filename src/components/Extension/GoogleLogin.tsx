@@ -1,48 +1,19 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { Button } from '@/components/ui/button';
-import type { RootState } from '@/redux/store';
-import { userType } from '@/redux/slices/userSlice';
-import { user } from '@/redux/slices/userSlice';
+import useAuth from '@/hooks/useAuth';
 
 function GoogleLogin() {
-  const userInfo = useSelector((state: RootState) => state.user.value);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log('newuserinfo: ', userInfo);
-  }, [userInfo]);
+  const { extensionLogin } = useAuth();
 
   function handleLogin() {
-    chrome.identity.getAuthToken({ interactive: true }, (token) => {
-      const init = {
-        method: 'GET',
-        async: true,
-        headers: {
-          Authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json',
-        },
-        contentType: 'json',
-      };
-      fetch(
-        'https://people.googleapis.com/v1/people/me?personFields=names,emailAddresses,photos',
-        init,
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          const [nameInfo] = data.names;
-          const [photoInfo] = data.photos;
-          const [emailInfo] = data.emailAddresses;
+    extensionLogin('example Google Token');
 
-          const newUserInfo: userType = {
-            name: nameInfo.displayName,
-            photoUrl: photoInfo.url,
-            email: emailInfo.value,
-          };
-
-          dispatch(user(newUserInfo));
-        });
-    });
+    /** 추후 구글 로그인 구현 */
+    // chrome.identity.getAuthToken({ interactive: true }, (googleIdToken) => {
+    //   if (!googleIdToken) {
+    //     throw new Error('Login is Failed at Google');
+    //   }
+    //   extensionLogin(googleIdToken);
+    // });
   }
 
   return (
@@ -50,9 +21,6 @@ function GoogleLogin() {
       <Button id="login" size="lg" onClick={handleLogin}>
         Google Login
       </Button>
-      <p>Name: {userInfo.name}</p>
-      <p>Email: {userInfo.email}</p>
-      <p>Photo URL: {userInfo.photoUrl}</p>
     </div>
   );
 }

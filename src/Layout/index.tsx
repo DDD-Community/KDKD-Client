@@ -1,6 +1,7 @@
 import GNB from '@/components/Home/GNB';
 import LNB from '@/components/Home/LNB';
 import Main from '@/components/Home/Main';
+import { ColorPalette } from '@/styles/ColorPalette';
 import { PropsWithChildren } from 'react';
 import LayoutController, { LayoutContext } from '@/Layout/Controller';
 import { css } from '@emotion/react';

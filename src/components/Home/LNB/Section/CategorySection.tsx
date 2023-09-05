@@ -17,6 +17,8 @@ import { ColorPalette } from '@/styles/ColorPalette';
 import CssStyles from './CategorySection.module.css';
 import SampleData from '@/components/common/sample_data.json';
 import { useState } from 'react';
+import CategoryPlaceholder from '../Items/CategoryPlaceholder';
+import { AxiosResponse } from 'axios';
 
 interface Props {
   selectedItem: string | null;
@@ -31,25 +33,44 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const cookies = new Cookies();
 
-  const [treeData, setTreeData] = useState(SampleData);
-  // const {
-  //   data: treeData,
-  //   isLoading,
-  //   mutate,
-  // } = useSWR<NodeModel[]>('/categories', fetcher);
+  // const [treeData, setTreeData] = useState<NodeModel<CustomData>[]>(SampleData);
+  const {
+    data: treeData,
+    isLoading,
+    mutate,
+  } = useSWR<NodeModel<CustomData>[]>('/categories', fetcher);
 
-  const handleDrop = (
-    newTree: NodeModel<CustomData>[],
-    { dragSourceId, dropTargetId, dragSource, dropTarget }: DropOptions,
+  const handleDrop = async (
+    newTreeDummyData: NodeModel<CustomData>[],
+    { dragSourceId, dropTargetId }: DropOptions,
   ) => {
-    console.log(
-      'dragSourceId, dropTargetId, dragSource, dropTarget',
-      dragSourceId,
-      dropTargetId,
-      dragSource,
-      dropTarget,
-    );
-    // mutate([...newTree]);
+    if (!treeData) return;
+
+    try {
+      const { data: droppedCategory }: AxiosResponse<NodeModel<CustomData>> =
+        await api.patch(
+          `categories/${dragSourceId}/position`,
+          { parentId: dropTargetId, aboveTargetId: null },
+          {
+            headers: {
+              Authorization: `Bearer ${cookies.get('accessToken')}`,
+            },
+          },
+        );
+
+      const newTree = [...treeData];
+      const indexToUpdate = newTree.findIndex(
+        (item) => item.id === dragSourceId,
+      );
+
+      if (indexToUpdate !== -1) {
+        newTree[indexToUpdate] = { ...droppedCategory };
+      }
+
+      mutate([...newTree]);
+    } catch (err) {
+      return;
+    }
   };
 
   const handleSelect = (id: number) => {
@@ -68,28 +89,31 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
   ) => {
     if (!treeData) return;
 
-    const newTree = [...treeData];
-
-    const indexToUpdate = newTree.findIndex((item) => item.id === id);
-
-    if (indexToUpdate !== -1) {
-      newTree[indexToUpdate] = {
-        ...newTree[indexToUpdate],
-        text: newCategoryName,
-      };
-    }
-
-    await api.patch(
-      `categories/${id}/name`,
-      { name: newCategoryName },
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.get('accessToken')}`,
+    try {
+      await api.patch(
+        `categories/${id}/name`,
+        { name: newCategoryName },
+        {
+          headers: {
+            Authorization: `Bearer ${cookies.get('accessToken')}`,
+          },
         },
-      },
-    );
+      );
 
-    // mutate([...newTree]);
+      const newTree = [...treeData];
+      const indexToUpdate = newTree.findIndex((item) => item.id === id);
+
+      if (indexToUpdate !== -1) {
+        newTree[indexToUpdate] = {
+          ...newTree[indexToUpdate],
+          text: newCategoryName,
+        };
+      }
+
+      mutate([...newTree]);
+    } catch (err) {
+      return;
+    }
   };
 
   const handleDeleteCategory = (id: NodeModel<CustomData>['id']) => {
@@ -127,6 +151,13 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
                 dragPreviewRender={(monitorProps) => (
                   <div>{monitorProps.item.text}</div>
                 )}
+                sort={(nodeA, nodeB) => {
+                  if (nodeA.data?.order && nodeB.data?.order) {
+                    return nodeA.data?.order - nodeB.data?.order;
+                  } else {
+                    return 1;
+                  }
+                }}
                 onDrop={handleDrop}
                 classes={{
                   root: CssStyles.treeRoot,
@@ -134,6 +165,10 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
                   dropTarget: CssStyles.dropTarget,
                   placeholder: CssStyles.placeholderContainer,
                 }}
+                // placeholderRender={(node, { depth }) => (
+                //   <CategoryPlaceholder node={node} depth={depth} />
+                // )}
+                // dropTargetOffset={10}
               ></Tree>
             </div>
           </DndProvider>

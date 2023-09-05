@@ -15,9 +15,6 @@ import VStack from '@/components/common/Stack/VStack';
 import CategoryItem from '../Items/CategoryItem';
 import { ColorPalette } from '@/styles/ColorPalette';
 import CssStyles from './CategorySection.module.css';
-import SampleData from '@/components/common/sample_data.json';
-import { useState } from 'react';
-import CategoryPlaceholder from '../Items/CategoryPlaceholder';
 import { AxiosResponse } from 'axios';
 
 interface Props {
@@ -33,7 +30,6 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
   const cookies = new Cookies();
 
-  // const [treeData, setTreeData] = useState<NodeModel<CustomData>[]>(SampleData);
   const {
     data: treeData,
     isLoading,
@@ -67,7 +63,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
         newTree[indexToUpdate] = { ...droppedCategory };
       }
 
-      mutate([...newTree]);
+      mutate(newTree);
     } catch (err) {
       return;
     }
@@ -110,14 +106,33 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
         };
       }
 
-      mutate([...newTree]);
+      mutate(newTree);
     } catch (err) {
       return;
     }
   };
 
-  const handleDeleteCategory = (id: NodeModel<CustomData>['id']) => {
-    console.log('handleDeleteCategory', id);
+  const handleDeleteCategory = async (id: NodeModel<CustomData>['id']) => {
+    if (!treeData) return;
+
+    try {
+      await api.delete(`categories/${id}`, {
+        headers: {
+          Authorization: `Bearer ${cookies.get('accessToken')}`,
+        },
+      });
+
+      const newTree = [...treeData];
+      const indexToDelete = newTree.findIndex((item) => item.id === id);
+
+      if (indexToDelete !== -1) {
+        newTree.splice(indexToDelete, 1);
+      }
+
+      mutate(newTree);
+    } catch (err) {
+      return;
+    }
   };
 
   return (

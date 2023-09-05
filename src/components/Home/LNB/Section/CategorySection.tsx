@@ -1,11 +1,5 @@
-import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
-import { Label } from '@/components/common/Typography';
-import VStack from '@/components/common/Stack/VStack';
-import SampleData from '@/components/common/sample_data.json';
-import { ColorPalette } from '@/styles/ColorPalette';
-import CssStyles from './CategorySection.module.css';
 import { DndProvider } from 'react-dnd';
 import {
   DropOptions,
@@ -14,8 +8,13 @@ import {
   Tree,
   getBackendOptions,
 } from '@minoru/react-dnd-treeview';
+import { api, fetcher } from '@/api';
+import { Cookies } from 'react-cookie';
+import { Label } from '@/components/common/Typography';
+import VStack from '@/components/common/Stack/VStack';
 import CategoryItem from '../Items/CategoryItem';
-import { fetcher } from '@/api';
+import { ColorPalette } from '@/styles/ColorPalette';
+import CssStyles from './CategorySection.module.css';
 
 interface Props {
   selectedItem: string | null;
@@ -28,14 +27,13 @@ export type NodeData = {
 
 function CategorySection({ selectedItem, onItemClick }: Props) {
   const [searchParams, setSearchParams] = useSearchParams();
+  const cookies = new Cookies();
 
-  // const {
-  //   data: treeData,
-  //   isLoading,
-  //   mutate,
-  // } = useSWR<NodeModel[]>('/categories', fetcher);
-
-  const [treeData, setTreeData] = useState<NodeModel[]>(SampleData);
+  const {
+    data: treeData,
+    isLoading,
+    mutate,
+  } = useSWR<NodeModel[]>('/categories', fetcher);
 
   const handleDrop = (
     newTree: NodeModel[],
@@ -48,8 +46,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
       dragSource,
       dropTarget,
     );
-    setTreeData(newTree);
-    // mutate([...newTree]);
+    mutate([...newTree]);
   };
 
   const handleSelect = (id: number) => {
@@ -62,13 +59,16 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     console.log('handleAddFavorites', id);
   };
 
-  const handleChangeName = (id: NodeModel['id'], newCategoryName: string) => {
+  const handleChangeName = async (
+    id: NodeModel['id'],
+    newCategoryName: string,
+  ) => {
+    if (!treeData) return;
+
     const newTree = [...treeData];
 
-    // 배열에서 id가 1인 요소를 찾습니다.
     const indexToUpdate = newTree.findIndex((item) => item.id === id);
 
-    // 요소를 찾았을 경우에만 text를 업데이트합니다.
     if (indexToUpdate !== -1) {
       newTree[indexToUpdate] = {
         ...newTree[indexToUpdate],
@@ -76,8 +76,17 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
       };
     }
 
-    // mutate([...newTree])
-    setTreeData([...newTree]);
+    await api.patch(
+      `categories/${id}/name`,
+      { name: newCategoryName },
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.get('accessToken')}`,
+        },
+      },
+    );
+
+    mutate([...newTree]);
   };
 
   const handleDeleteCategory = (id: NodeModel['id']) => {

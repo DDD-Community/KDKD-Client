@@ -8,7 +8,7 @@ import {
   Tree,
   getBackendOptions,
 } from '@minoru/react-dnd-treeview';
-import { api, fetcher } from '@/api';
+import { api, fetcher, requester } from '@/api';
 import { Cookies } from 'react-cookie';
 import { Label } from '@/components/common/Typography';
 import VStack from '@/components/common/Stack/VStack';
@@ -28,7 +28,6 @@ export type CustomData = {
 };
 
 function CategorySection({ selectedItem, onItemClick }: Props) {
-  const cookies = new Cookies();
   const [searchParams, setSearchParams] = useSearchParams();
   const { mutate: globalMutate } = useSWRConfig();
 
@@ -46,15 +45,10 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
 
     try {
       const { data: droppedCategory }: AxiosResponse<NodeModel<CustomData>> =
-        await api.patch(
-          `/categories/${dragSourceId}/position`,
-          { parentId: dropTargetId, aboveTargetId: null },
-          {
-            headers: {
-              Authorization: `Bearer ${cookies.get('accessToken')}`,
-            },
-          },
-        );
+        await requester(`/categories/${dragSourceId}/position`, 'PATCH', {
+          parentId: dropTargetId,
+          aboveTargetId: null,
+        });
 
       const newTree = [...treeData];
       const indexToUpdate = newTree.findIndex(
@@ -78,23 +72,11 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
   };
 
   const handleAddFavorites = async (id: NodeModel<CustomData>['id']) => {
-    await api.patch(
-      `/categories/${id}/bookmark`,
-      { bookmark: true },
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.get('accessToken')}`,
-        },
-      },
-    );
+    await requester(`/categories/${id}/bookmark`, 'PATCH', { bookmark: true });
 
-    const { data }: AxiosResponse<FavoritesItemType[]> = await api.get(
+    const { data }: AxiosResponse<FavoritesItemType[]> = await requester(
       '/categories/bookmark',
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.get('accessToken')}`,
-        },
-      },
+      'GET',
     );
 
     globalMutate('/categories/bookmark', data);
@@ -107,15 +89,9 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     if (!treeData) return;
 
     try {
-      await api.patch(
-        `/categories/${id}/name`,
-        { name: newCategoryName },
-        {
-          headers: {
-            Authorization: `Bearer ${cookies.get('accessToken')}`,
-          },
-        },
-      );
+      await requester(`/categories/${id}/name`, 'PATCH', {
+        name: newCategoryName,
+      });
 
       const newTree = [...treeData];
       const indexToUpdate = newTree.findIndex((item) => item.id === id);
@@ -137,11 +113,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     if (!treeData) return;
 
     try {
-      await api.delete(`/categories/${id}`, {
-        headers: {
-          Authorization: `Bearer ${cookies.get('accessToken')}`,
-        },
-      });
+      await requester(`/categories/${id}`, 'DELETE');
 
       const newTree = [...treeData];
       const indexToDelete = newTree.findIndex((item) => item.id === id);

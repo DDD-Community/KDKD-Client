@@ -9,7 +9,7 @@ import {
 import FavoritesPopover from '../Popover/FavoritesPopover';
 import S, { styles, selectedStyle } from './style';
 import { useSWRConfig } from 'swr';
-import { api } from '@/api';
+import { api, requester } from '@/api';
 import { Cookies } from 'react-cookie';
 import { AxiosResponse } from 'axios';
 import { FavoritesItemType } from '../Section/FavoritesSection';
@@ -26,7 +26,6 @@ function FavoritesItem({
   onClick,
   children,
 }: PropsWithChildren<Props>) {
-  const cookies = new Cookies();
   const { mutate: globalMutate } = useSWRConfig();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -34,23 +33,13 @@ function FavoritesItem({
   const handleMouseLeave = () => setIsHovered(false);
 
   const onDeleteFavorites = async (id: number) => {
-    await api.patch(
-      `/categories/${id}/bookmark`,
-      { bookmark: false },
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.get('accessToken')}`,
-        },
-      },
-    );
+    await requester(`/categories/${id}/bookmark`, 'PATCH', {
+      bookmark: false,
+    });
 
-    const { data }: AxiosResponse<FavoritesItemType[]> = await api.get(
+    const { data }: AxiosResponse<FavoritesItemType[]> = await requester(
       '/categories/bookmark',
-      {
-        headers: {
-          Authorization: `Bearer ${cookies.get('accessToken')}`,
-        },
-      },
+      'GET',
     );
 
     globalMutate('/categories/bookmark', data);

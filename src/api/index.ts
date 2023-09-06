@@ -20,5 +20,25 @@ export const fetcher = async (url: string, params = '') => {
     .then((res) => res.data);
 };
 
+export const requester = async <T>(
+  url: string,
+  method: 'GET' | 'POST' | 'PATCH' | 'DELETE',
+  body?: T,
+) => {
+  const cookie = new Cookies();
+  const accessToken = cookie.get('accessToken');
+
+  return api({
+    url,
+    method,
+    headers: {
+      ...(accessToken && {
+        Authorization: `Bearer ${accessToken}`,
+      }),
+    },
+    ...(body && { data: body }),
+  });
+};
+
 export const sendRequest = <T>(url: string, { arg }: { arg: T }) =>
   api.post(url, arg).then((res) => res.data);

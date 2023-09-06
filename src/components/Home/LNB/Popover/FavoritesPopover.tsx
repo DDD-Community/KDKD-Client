@@ -1,27 +1,17 @@
-import BinIcon from '@/assets/svg/BinIcon';
-import MemoIcon from '@/assets/svg/MemoIcon';
 import StarIcon from '@/assets/svg/StarIcon';
 import { Label } from '@/components/common/Typography';
 import S from './style';
 
 interface Props {
-  id: number;
+  onDeleteFavorites: () => void;
 }
 
-function FavoritesPopover({ id }: Props) {
+function FavoritesPopover({ onDeleteFavorites }: Props) {
   return (
     <S.PopoverContainer>
-      <S.PopoverContentItem>
+      <S.PopoverContentItem onClick={onDeleteFavorites}>
         <StarIcon />
         <Label>즐겨찾기 해제</Label>
-      </S.PopoverContentItem>
-      <S.PopoverContentItem>
-        <MemoIcon />
-        <Label>카테고리 이름 수정</Label>
-      </S.PopoverContentItem>
-      <S.PopoverContentItem>
-        <BinIcon />
-        <Label>카테고리 삭제</Label>
       </S.PopoverContentItem>
     </S.PopoverContainer>
   );

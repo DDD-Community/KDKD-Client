@@ -1,5 +1,5 @@
 import { useSearchParams } from 'react-router-dom';
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import { DndProvider } from 'react-dnd';
 import {
   DropOptions,
@@ -16,6 +16,7 @@ import CategoryItem from '../Items/CategoryItem';
 import { ColorPalette } from '@/styles/ColorPalette';
 import CssStyles from './CategorySection.module.css';
 import { AxiosResponse } from 'axios';
+import { FavoritesItemType } from './FavoritesSection';
 
 interface Props {
   selectedItem: string | null;
@@ -27,13 +28,14 @@ export type CustomData = {
 };
 
 function CategorySection({ selectedItem, onItemClick }: Props) {
-  const [searchParams, setSearchParams] = useSearchParams();
   const cookies = new Cookies();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { mutate: globalMutate } = useSWRConfig();
 
   const {
     data: treeData,
     isLoading,
-    mutate,
+    mutate: setTreeData,
   } = useSWR<NodeModel<CustomData>[]>('/categories', fetcher);
 
   const handleDrop = async (
@@ -45,7 +47,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     try {
       const { data: droppedCategory }: AxiosResponse<NodeModel<CustomData>> =
         await api.patch(
-          `categories/${dragSourceId}/position`,
+          `/categories/${dragSourceId}/position`,
           { parentId: dropTargetId, aboveTargetId: null },
           {
             headers: {
@@ -63,7 +65,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
         newTree[indexToUpdate] = { ...droppedCategory };
       }
 
-      mutate(newTree);
+      setTreeData(newTree);
     } catch (err) {
       return;
     }
@@ -75,8 +77,27 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     setSearchParams(searchParams);
   };
 
-  const handleAddFavorites = (id: NodeModel<CustomData>['id']) => {
-    console.log('handleAddFavorites', id);
+  const handleAddFavorites = async (id: NodeModel<CustomData>['id']) => {
+    await api.patch(
+      `/categories/${id}/bookmark`,
+      { bookmark: true },
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.get('accessToken')}`,
+        },
+      },
+    );
+
+    const { data }: AxiosResponse<FavoritesItemType[]> = await api.get(
+      '/categories/bookmark',
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.get('accessToken')}`,
+        },
+      },
+    );
+
+    globalMutate('/categories/bookmark', data);
   };
 
   const handleChangeName = async (
@@ -87,7 +108,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
 
     try {
       await api.patch(
-        `categories/${id}/name`,
+        `/categories/${id}/name`,
         { name: newCategoryName },
         {
           headers: {
@@ -106,7 +127,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
         };
       }
 
-      mutate(newTree);
+      setTreeData(newTree);
     } catch (err) {
       return;
     }
@@ -116,7 +137,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     if (!treeData) return;
 
     try {
-      await api.delete(`categories/${id}`, {
+      await api.delete(`/categories/${id}`, {
         headers: {
           Authorization: `Bearer ${cookies.get('accessToken')}`,
         },
@@ -129,7 +150,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
         newTree.splice(indexToDelete, 1);
       }
 
-      mutate(newTree);
+      setTreeData(newTree);
     } catch (err) {
       return;
     }

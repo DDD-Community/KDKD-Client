@@ -1,11 +1,13 @@
 import FavoritesItem from '../Items/FavoritesItem';
 import { Label } from '@/components/common/Typography';
+import VStack from '@/components/common/Stack/VStack';
 import { ColorPalette } from '@/styles/ColorPalette';
 import StarIcon from '@/assets/svg/StarIcon';
-import VStack from '@/components/common/Stack/VStack';
-import useSWR from 'swr';
-import { fetcher } from '@/api';
+import useSWR, { useSWRConfig } from 'swr';
+import { fetcher, requester } from '@/api';
 import { useSearchParams } from 'react-router-dom';
+import { NodeModel } from '@minoru/react-dnd-treeview';
+import { AxiosResponse } from 'axios';
 
 interface Props {
   selectedItem: string | null;
@@ -18,6 +20,7 @@ export interface FavoritesItemType {
 }
 
 function FavoritesSection({ selectedItem, onItemClick }: Props) {
+  const { mutate: globalMutate } = useSWRConfig();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { data: favorites } = useSWR<FavoritesItemType[]>(
@@ -28,6 +31,19 @@ function FavoritesSection({ selectedItem, onItemClick }: Props) {
   const handleSelect = (id: number) => {
     searchParams.set('categoryId', id.toString());
     setSearchParams(searchParams);
+  };
+
+  const handleDeleteFavorite = async (id: NodeModel['id']) => {
+    await requester(`/categories/${id}/bookmark`, 'PATCH', {
+      bookmark: false,
+    });
+
+    const { data }: AxiosResponse<FavoritesItemType[]> = await requester(
+      '/categories/bookmark',
+      'GET',
+    );
+
+    globalMutate('/categories/bookmark', data);
   };
 
   return (
@@ -44,6 +60,7 @@ function FavoritesSection({ selectedItem, onItemClick }: Props) {
                 onItemClick(`Favorites/${item.id}`);
                 handleSelect(item.id);
               }}
+              onDeleteFavorite={handleDeleteFavorite}
               isSelected={selectedItem === `Favorites/${item.id}`}
               key={item.id}
             >

@@ -44,22 +44,17 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     if (!treeData) return;
 
     try {
-      const { data: droppedCategory }: AxiosResponse<NodeModel<CustomData>> =
-        await requester(`/categories/${dragSourceId}/position`, 'PATCH', {
-          parentId: dropTargetId,
-          aboveTargetId: null,
-        });
+      await requester(`/categories/${dragSourceId}/position`, 'PATCH', {
+        parentId: dropTargetId,
+        aboveTargetId: null,
+      });
 
-      const newTree = [...treeData];
-      const indexToUpdate = newTree.findIndex(
-        (item) => item.id === dragSourceId,
+      const { data }: AxiosResponse<NodeModel<CustomData>[]> = await requester(
+        '/categories',
+        'GET',
       );
 
-      if (indexToUpdate !== -1) {
-        newTree[indexToUpdate] = { ...droppedCategory };
-      }
-
-      setTreeData(newTree);
+      setTreeData(data);
     } catch (err) {
       return;
     }
@@ -93,17 +88,12 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
         name: newCategoryName,
       });
 
-      const newTree = [...treeData];
-      const indexToUpdate = newTree.findIndex((item) => item.id === id);
+      const { data }: AxiosResponse<NodeModel<CustomData>[]> = await requester(
+        '/categories',
+        'GET',
+      );
 
-      if (indexToUpdate !== -1) {
-        newTree[indexToUpdate] = {
-          ...newTree[indexToUpdate],
-          text: newCategoryName,
-        };
-      }
-
-      setTreeData(newTree);
+      setTreeData(data);
     } catch (err) {
       return;
     }
@@ -115,14 +105,12 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
     try {
       await requester(`/categories/${id}`, 'DELETE');
 
-      const newTree = [...treeData];
-      const indexToDelete = newTree.findIndex((item) => item.id === id);
+      const { data }: AxiosResponse<NodeModel<CustomData>[]> = await requester(
+        '/categories',
+        'GET',
+      );
 
-      if (indexToDelete !== -1) {
-        newTree.splice(indexToDelete, 1);
-      }
-
-      setTreeData(newTree);
+      setTreeData(data);
     } catch (err) {
       return;
     }

@@ -8,16 +8,13 @@ import {
 } from '@/components/ui/popover';
 import FavoritesPopover from '../Popover/FavoritesPopover';
 import S, { styles, selectedStyle } from './style';
-import { useSWRConfig } from 'swr';
-import { api, requester } from '@/api';
-import { Cookies } from 'react-cookie';
-import { AxiosResponse } from 'axios';
-import { FavoritesItemType } from '../Section/FavoritesSection';
+import { NodeModel } from '@minoru/react-dnd-treeview';
 
 interface Props {
   id: number;
   isSelected: boolean;
   onClick: React.MouseEventHandler<HTMLDivElement>;
+  onDeleteFavorite: (id: NodeModel['id']) => void;
 }
 
 function FavoritesItem({
@@ -25,25 +22,12 @@ function FavoritesItem({
   isSelected = false,
   onClick,
   children,
+  onDeleteFavorite,
 }: PropsWithChildren<Props>) {
-  const { mutate: globalMutate } = useSWRConfig();
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
-
-  const onDeleteFavorites = async (id: number) => {
-    await requester(`/categories/${id}/bookmark`, 'PATCH', {
-      bookmark: false,
-    });
-
-    const { data }: AxiosResponse<FavoritesItemType[]> = await requester(
-      '/categories/bookmark',
-      'GET',
-    );
-
-    globalMutate('/categories/bookmark', data);
-  };
 
   return (
     <div
@@ -56,14 +40,14 @@ function FavoritesItem({
       <S.RightSection>
         {isHovered ? (
           <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger onClick={(e) => e.stopPropagation()}>
               <div>
                 <MoreIcon />
               </div>
             </PopoverTrigger>
             <PopoverContent>
               <FavoritesPopover
-                onDeleteFavorites={() => onDeleteFavorites(id)}
+                onDeleteFavorites={() => onDeleteFavorite(id)}
               />
             </PopoverContent>
           </Popover>

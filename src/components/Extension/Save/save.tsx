@@ -66,7 +66,7 @@ const styles = {
   },
 };
 
-function Index() {
+function Save() {
   const [url, setUrl] = useState('www.naver.com');
   const { data: urlDetail }: { data: UrlDetailResponse } = useSWR(
     ['/urls', `?address=${url}`],
@@ -215,4 +215,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Save;

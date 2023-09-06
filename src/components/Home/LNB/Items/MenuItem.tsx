@@ -21,7 +21,7 @@ function MenuItem({
     >
       <S.LeftSection>{children}</S.LeftSection>
       <S.RightSection>
-        <Label className="label-12-400">{count}</Label>
+        {/* <Label className="label-12-400">{count}</Label> */}
       </S.RightSection>
     </div>
   );

@@ -7,19 +7,22 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import FavoritesPopover from '../Popover/FavoritesPopover';
-import { styles, selectedStyle, LeftSection, RightSection } from './style';
+import S, { styles, selectedStyle } from './style';
+import { NodeModel } from '@minoru/react-dnd-treeview';
 
 interface Props {
-  count?: number;
+  id: number;
   isSelected: boolean;
-  onClick?: React.MouseEventHandler<HTMLDivElement>;
+  onClick: React.MouseEventHandler<HTMLDivElement>;
+  onDeleteFavorite: (id: NodeModel['id']) => void;
 }
 
 function FavoritesItem({
-  count = 0,
+  id,
   isSelected = false,
   onClick,
   children,
+  onDeleteFavorite,
 }: PropsWithChildren<Props>) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -33,23 +36,26 @@ function FavoritesItem({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <LeftSection>{children}</LeftSection>
-      <RightSection>
+      <S.LeftSection>{children}</S.LeftSection>
+      <S.RightSection>
         {isHovered ? (
           <Popover>
-            <PopoverTrigger asChild>
+            <PopoverTrigger onClick={(e) => e.stopPropagation()}>
               <div>
                 <MoreIcon />
               </div>
             </PopoverTrigger>
             <PopoverContent>
-              <FavoritesPopover id={1} />
+              <FavoritesPopover
+                onDeleteFavorites={() => onDeleteFavorite(id)}
+              />
             </PopoverContent>
           </Popover>
         ) : (
-          <Label className="label-12-400">{count}</Label>
+          // <Label className="label-12-400">{count}</Label>
+          <div />
         )}
-      </RightSection>
+      </S.RightSection>
     </div>
   );
 }

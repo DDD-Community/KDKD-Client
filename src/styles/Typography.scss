@@ -52,6 +52,16 @@
       font-weight: 400;
     }
   }
+
+  &-16 {
+    font-size: 16px;
+    line-height: 20px;
+    
+    &-400 {
+      @extend .body-16;
+      font-weight: 400;
+    }
+  }
 }
 
 .label {

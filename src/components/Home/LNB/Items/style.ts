@@ -8,7 +8,7 @@ export const selectedStyle = {
     lineHeight: '20px',
     color: ColorPalette.primary,
   },
-  path: {
+  'path:not([fill="white"])': {
     fill: ColorPalette.primary,
   },
 };
@@ -30,14 +30,19 @@ export const styles = {
   },
 };
 
-export const LeftSection = styled.div`
+const LeftSection = styled.div`
   display: flex;
   align-items: center;
   gap: 6px;
 `;
 
-export const RightSection = styled.div`
+const RightSection = styled.div`
   span {
     color: ${ColorPalette.gray[500]};
   }
 `;
+
+export default {
+  LeftSection,
+  RightSection,
+};

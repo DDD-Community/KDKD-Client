@@ -7,6 +7,7 @@ import { Headline } from '@/components/common/Typography';
 import UrlCard from '../UrlCard';
 import { fetcher } from '@/api/index';
 import S from './styles';
+import NoResult from './NoResult';
 
 export interface UrlInfo {
   urlId: number;
@@ -44,7 +45,6 @@ function SearchResult() {
 
   return (
     <S.Container>
-      {isLoading && <div>IsLoading...</div>}
       {searchDetails && (
         <>
           <S.Header>
@@ -66,6 +66,8 @@ function SearchResult() {
           </VStack>
         </>
       )}
+      {searchDetails?.url.length === 0 && <NoResult />}
+      {error && <NoResult />}
     </S.Container>
   );
 }

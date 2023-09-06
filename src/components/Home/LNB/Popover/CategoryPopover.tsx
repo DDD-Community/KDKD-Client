@@ -3,45 +3,34 @@ import MemoIcon from '@/assets/svg/MemoIcon';
 import StarIcon from '@/assets/svg/StarIcon';
 import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
-import styled from '@emotion/styled';
+import S from './style';
 
 interface Props {
-  id: number;
+  onAddFavorites: () => void;
+  onOpenNameInput: () => void;
+  onDeleteCategory: () => void;
 }
 
-const PopoverContainer = styled.div`
-  padding: 4px;
-`;
-
-const PopoverContentItem = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${ColorPalette.gray[100]};
-  }
-`;
-
-function CategoryPopover({ id }: Props) {
+function CategoryPopover({
+  onAddFavorites,
+  onOpenNameInput,
+  onDeleteCategory,
+}: Props) {
   return (
-    <PopoverContainer>
-      <PopoverContentItem>
+    <S.PopoverContainer>
+      <S.PopoverContentItem onClick={onAddFavorites}>
         <StarIcon />
         <Label>즐겨찾기 추가</Label>
-      </PopoverContentItem>
-      <PopoverContentItem>
+      </S.PopoverContentItem>
+      <S.PopoverContentItem onClick={onOpenNameInput}>
         <MemoIcon />
         <Label>카테고리 이름 수정</Label>
-      </PopoverContentItem>
-      <PopoverContentItem>
+      </S.PopoverContentItem>
+      <S.PopoverContentItem onClick={onDeleteCategory}>
         <BinIcon />
         <Label>카테고리 삭제</Label>
-      </PopoverContentItem>
-    </PopoverContainer>
+      </S.PopoverContentItem>
+    </S.PopoverContainer>
   );
 }
 

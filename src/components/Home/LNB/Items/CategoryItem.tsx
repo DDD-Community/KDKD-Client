@@ -55,23 +55,29 @@ const styles = {
   },
 };
 
-function CategoryItem(props: Props) {
+function CategoryItem({
+  node,
+  depth,
+  isOpen,
+  isSelected,
+  onToggle,
+  onClick,
+  onAddFavorites,
+  onChangeName,
+  onDeleteCategory,
+}: Props) {
   const [isHovered, setIsHovered] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState('');
   const [isNameInputOpened, setIsNameInputOpened] = useState(false);
 
   /** drag하여 아이템을 hover했을 시 자동으로 tree가 펼쳐질 수 있도록 함 */
-  const dragOverProps = useDragOver(
-    props.node.id,
-    props.isOpen,
-    props.onToggle,
-  );
+  const dragOverProps = useDragOver(node.id, isOpen, onToggle);
 
   const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => setIsHovered(false);
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
-    props.onToggle(props.node.id);
+    onToggle(node.id);
   };
 
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -89,7 +95,7 @@ function CategoryItem(props: Props) {
     e,
   ) => {
     if (e.key === 'Enter' && newCategoryName.trim().length > 0) {
-      props.onChangeName(props.node.id, newCategoryName.trim());
+      onChangeName(node.id, newCategoryName.trim());
       setNewCategoryName('');
       setIsNameInputOpened(false);
     } else if (e.key === 'Escape') {
@@ -100,7 +106,7 @@ function CategoryItem(props: Props) {
   const submitName = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (newCategoryName.trim().length > 0) {
-      props.onChangeName(props.node.id, newCategoryName.trim());
+      onChangeName(node.id, newCategoryName.trim());
     }
     setNewCategoryName('');
     setIsNameInputOpened(false);
@@ -110,22 +116,22 @@ function CategoryItem(props: Props) {
     <div
       css={{
         ...BaseStyles.container,
-        paddingInlineStart: props.depth * 22 + 10,
-        ...(props.isSelected ? selectedStyle : {}),
+        paddingInlineStart: depth * 22 + 10,
+        ...(isSelected ? selectedStyle : {}),
       }}
       {...dragOverProps}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={() => props.onClick(props.node.id)}
+      onClick={() => onClick(node.id)}
     >
       <S.LeftSection>
         <div
           style={{
             ...styles.expandIconWrapper,
-            ...(props.isOpen ? styles.expandIconWrapperOpened : {}),
+            ...(isOpen ? styles.expandIconWrapperOpened : {}),
           }}
         >
-          {props.node.droppable && (
+          {node.droppable && (
             <div onClick={handleToggle}>
               <ArrowRightIcon />
             </div>
@@ -145,7 +151,7 @@ function CategoryItem(props: Props) {
             <Done onClick={submitName} />
           </div>
         ) : (
-          <Label className="label-14-400">{props.node.text}</Label>
+          <Label className="label-14-400">{node.text}</Label>
         )}
       </S.LeftSection>
       <S.RightSection>
@@ -158,9 +164,9 @@ function CategoryItem(props: Props) {
             </PopoverTrigger>
             <PopoverContent>
               <CategoryPopover
-                onAddFavorites={() => props.onAddFavorites(props.node.id)}
+                onAddFavorites={() => onAddFavorites(node.id)}
                 onOpenNameInput={() => setIsNameInputOpened(true)}
-                onDeleteCategory={() => props.onDeleteCategory(props.node.id)}
+                onDeleteCategory={() => onDeleteCategory(node.id)}
               />
             </PopoverContent>
           </Popover>

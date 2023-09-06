@@ -6,7 +6,7 @@ import defaultUrlOGImage from '@/assets/images/defaultUrlOGImage.png';
 import IsNotSaved from '@/assets/svg/IsNotSaved';
 import { Controller, useForm } from 'react-hook-form';
 import useSWR from 'swr';
-import { fetcher } from '@/api/extension';
+import { fetcher, requester } from '@/api/extension';
 import TagInput, { Tag } from '@/components/common/TagInput';
 import { Textarea } from '@/components/ui/textarea';
 import UrlInfoSection from '@/components/Extension/UrlInfoSection';
@@ -20,7 +20,7 @@ interface IFormInputs {
   category: number | null;
   tags: Tag[];
   memo: string;
-  saveForLater: boolean;
+  isWatchedLater: boolean;
 }
 
 const styles = {
@@ -78,7 +78,7 @@ function Index() {
     category: null,
     tags: [],
     memo: '',
-    saveForLater: false,
+    isWatchedLater: false,
   };
 
   async function getCurrentTabUrl() {
@@ -109,7 +109,23 @@ function Index() {
     if (e.key === 'Enter') e.preventDefault();
   };
 
-  const onSubmit = (data: IFormInputs) => alert(JSON.stringify(data));
+  const onSubmit = async (data: IFormInputs) => {
+    try {
+      const tag = data.tags.map((tag) => tag.text);
+
+      await requester('/urls', 'POST', {
+        urlAddress: url,
+        name: data.urlTitle,
+        categoryId: data.category,
+        tag,
+        memo: data.memo,
+        isWatchedLater: data.isWatchedLater,
+        thumbnail: '',
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} onKeyDown={(e) => checkKeyDown(e)}>
@@ -176,7 +192,7 @@ function Index() {
           </UrlInfoSection>
           <section style={{ display: 'flex', gap: '9px' }}>
             <input
-              {...register('saveForLater', {
+              {...register('isWatchedLater', {
                 value: urlDetail?.isWatchedLater,
               })}
               type="checkbox"

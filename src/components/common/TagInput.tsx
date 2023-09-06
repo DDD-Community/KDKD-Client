@@ -69,8 +69,16 @@ function TagInput({ onChange }: Props) {
     setIsFocused(true);
   };
 
-  const handleBlur: React.FocusEventHandler<HTMLInputElement> = () => {
+  const handleBlur: React.FocusEventHandler<HTMLInputElement> = (e) => {
     setIsFocused(false);
+
+    if (e.target.value) {
+      setTags((prevTags) => [
+        ...prevTags,
+        { text: `${e.target.value.trim()}`, id: Date.now() },
+      ]);
+      setInputValue('');
+    }
   };
 
   const handleInputChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -85,7 +93,7 @@ function TagInput({ onChange }: Props) {
 
       setTags((prevTags) => [
         ...prevTags,
-        { text: `# ${inputValue.trim()}`, id: Date.now() },
+        { text: `${inputValue.trim()}`, id: Date.now() },
       ]);
       setInputValue('');
     }
@@ -117,7 +125,7 @@ function TagInput({ onChange }: Props) {
     >
       {tags.map((tag) => (
         <div key={tag.id} style={styles.tag}>
-          <Label>{tag.text}</Label>
+          <Label>{`# ${tag.text}`}</Label>
           <TagCancelIcon onClick={() => handleTagDelete(tag.id)} />
         </div>
       ))}

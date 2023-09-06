@@ -8,15 +8,12 @@ import {
   Tree,
   getBackendOptions,
 } from '@minoru/react-dnd-treeview';
-import { api, fetcher, requester } from '@/api';
-import { Cookies } from 'react-cookie';
+import { fetcher, requester } from '@/api';
 import { Label } from '@/components/common/Typography';
 import VStack from '@/components/common/Stack/VStack';
 import CategoryItem from '../Items/CategoryItem';
 import { ColorPalette } from '@/styles/ColorPalette';
 import CssStyles from './CategorySection.module.css';
-import { AxiosResponse } from 'axios';
-import { FavoritesItemType } from './FavoritesSection';
 
 interface Props {
   selectedItem: string | null;
@@ -34,27 +31,19 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
   const {
     data: treeData,
     isLoading,
-    mutate: setTreeData,
+    mutate: mutateTreeData,
   } = useSWR<NodeModel<CustomData>[]>('/categories', fetcher);
 
   const handleDrop = async (
     newTreeDummyData: NodeModel<CustomData>[],
     { dragSourceId, dropTargetId }: DropOptions,
   ) => {
-    if (!treeData) return;
-
     try {
       await requester(`/categories/${dragSourceId}/position`, 'PATCH', {
         parentId: dropTargetId,
         aboveTargetId: null,
       });
-
-      const { data }: AxiosResponse<NodeModel<CustomData>[]> = await requester(
-        '/categories',
-        'GET',
-      );
-
-      setTreeData(data);
+      mutateTreeData((treeData) => treeData);
     } catch (err) {
       return;
     }
@@ -68,32 +57,18 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
 
   const handleAddFavorites = async (id: NodeModel<CustomData>['id']) => {
     await requester(`/categories/${id}/bookmark`, 'PATCH', { bookmark: true });
-
-    const { data }: AxiosResponse<FavoritesItemType[]> = await requester(
-      '/categories/bookmark',
-      'GET',
-    );
-
-    globalMutate('/categories/bookmark', data);
+    globalMutate('/categories/bookmark', (favorites) => favorites);
   };
 
   const handleChangeName = async (
     id: NodeModel<CustomData>['id'],
     newCategoryName: string,
   ) => {
-    if (!treeData) return;
-
     try {
       await requester(`/categories/${id}/name`, 'PATCH', {
         name: newCategoryName,
       });
-
-      const { data }: AxiosResponse<NodeModel<CustomData>[]> = await requester(
-        '/categories',
-        'GET',
-      );
-
-      setTreeData(data);
+      mutateTreeData((treeData) => treeData);
     } catch (err) {
       return;
     }
@@ -104,13 +79,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
 
     try {
       await requester(`/categories/${id}`, 'DELETE');
-
-      const { data }: AxiosResponse<NodeModel<CustomData>[]> = await requester(
-        '/categories',
-        'GET',
-      );
-
-      setTreeData(data);
+      mutateTreeData(treeData);
     } catch (err) {
       return;
     }

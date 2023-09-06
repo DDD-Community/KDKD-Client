@@ -3,7 +3,7 @@ import { Label } from '@/components/common/Typography';
 import VStack from '@/components/common/Stack/VStack';
 import { ColorPalette } from '@/styles/ColorPalette';
 import StarIcon from '@/assets/svg/StarIcon';
-import useSWR, { useSWRConfig } from 'swr';
+import useSWR from 'swr';
 import { fetcher, requester } from '@/api';
 import { useSearchParams } from 'react-router-dom';
 import { NodeModel } from '@minoru/react-dnd-treeview';
@@ -20,13 +20,11 @@ export interface FavoritesItemType {
 }
 
 function FavoritesSection({ selectedItem, onItemClick }: Props) {
-  const { mutate: globalMutate } = useSWRConfig();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { data: favorites } = useSWR<FavoritesItemType[]>(
-    '/categories/bookmark',
-    fetcher,
-  );
+  const { data: favorites, mutate: mutateFavorites } = useSWR<
+    FavoritesItemType[]
+  >('/categories/bookmark', fetcher);
 
   const handleSelect = (id: number) => {
     searchParams.set('categoryId', id.toString());
@@ -37,13 +35,7 @@ function FavoritesSection({ selectedItem, onItemClick }: Props) {
     await requester(`/categories/${id}/bookmark`, 'PATCH', {
       bookmark: false,
     });
-
-    const { data }: AxiosResponse<FavoritesItemType[]> = await requester(
-      '/categories/bookmark',
-      'GET',
-    );
-
-    globalMutate('/categories/bookmark', data);
+    mutateFavorites((favorites) => favorites);
   };
 
   return (

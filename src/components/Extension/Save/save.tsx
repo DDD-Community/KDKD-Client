@@ -122,6 +122,7 @@ function Save() {
         isWatchedLater: data.isWatchedLater,
         thumbnail: '',
       });
+      window.close();
     } catch (error) {
       console.error(error);
     }

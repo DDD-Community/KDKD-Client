@@ -1,25 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { DndProvider } from 'react-dnd';
 import {
-  Tree,
-  NodeModel,
-  MultiBackend,
   getBackendOptions,
+  MultiBackend,
+  NodeModel,
+  Tree,
 } from '@minoru/react-dnd-treeview';
-import SampleData from '../sample_data.json';
 import CssStyles from './Category.module.css';
 import CategorySelectNode from './CategorySelectNode';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Label } from '../Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
 import CaretUp from '@/assets/svg/CaretUp';
 import CaretDown from '@/assets/svg/CaretDown';
+import { fetcher } from '@/api/extension';
+import { CustomData } from '@/components/Home/LNB/Section/CategorySection';
+import useSWR from 'swr';
 
 interface Props {
   onChange: (id: number) => void;
@@ -47,15 +42,53 @@ const styles = {
 };
 
 function CategorySelect({ onChange }: Props) {
-  const [treeData, setTreeData] = useState<NodeModel[]>(SampleData);
   const [categoryPath, setCategoryPath] = useState('');
   const [isContentOpen, setIsContentOpen] = useState(false);
+
+  const { data: treeData, mutate } = useSWR<NodeModel<CustomData>[]>(
+    '/categories',
+    fetcher,
+  );
+
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        !triggerRef?.current?.contains(event.target as Node) &&
+        !contentRef?.current?.contains(event.target as Node)
+      ) {
+        setIsContentOpen(false);
+      }
+    };
+
+    if (!treeData) {
+      return;
+    }
+
+    if (isContentOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+      mutate(
+        (treeData as NodeModel<CustomData>[]).filter((item) => item.id !== -1),
+      );
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isContentOpen]);
+
+  if (!treeData) {
+    return <></>;
+  }
 
   const toggleContent = () => {
     setIsContentOpen(!isContentOpen);
   };
 
-  const handleDrop = (newTree: NodeModel[]) => setTreeData(newTree);
   const handleValueChange = (val: NodeModel['id']) => {
     onChange(Number(val));
     setCategoryPath(getCategoryPath(treeData, Number(val)));
@@ -63,7 +96,7 @@ function CategorySelect({ onChange }: Props) {
   };
 
   const getCategoryPath = (
-    data: NodeModel[],
+    data: NodeModel<CustomData>[],
     id: number,
     result: string[] = [],
   ) => {
@@ -91,14 +124,14 @@ function CategorySelect({ onChange }: Props) {
       parent: Number(parentId),
       text: '신규 카테고리',
     };
-    setTreeData([...treeData, newCategory]);
+    // mutate((data: NodeModel<CustomData>) => [...data, newCategory]);
   };
 
   const generateUniqueCategoryName = (
     parent: number,
     desiredName: string,
   ): string => {
-    const sameParentAndTextItems = treeData.filter(
+    const sameParentAndTextItems = (treeData as NodeModel<CustomData>[]).filter(
       (item) => item.parent === parent && item.text.startsWith(desiredName),
     );
 
@@ -127,7 +160,7 @@ function CategorySelect({ onChange }: Props) {
     const targetIndex = newTreeData.findIndex((item) => item.id === -1);
 
     if (targetIndex !== -1) {
-      const newId = treeData.length; // API 응답 데이터(id)
+      const newId = (treeData as NodeModel<CustomData>[]).length; // API 응답 데이터(id)
       const newUniqueCategoryName = generateUniqueCategoryName(
         Number(newTreeData[targetIndex].parent),
         newCategoryName,
@@ -139,33 +172,8 @@ function CategorySelect({ onChange }: Props) {
         text: newUniqueCategoryName,
       };
     }
-    setTreeData(newTreeData);
+    mutate(newTreeData);
   };
-
-  const triggerRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        !triggerRef?.current?.contains(event.target as Node) &&
-        !contentRef?.current?.contains(event.target as Node)
-      ) {
-        setIsContentOpen(false);
-      }
-    };
-
-    if (isContentOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-      setTreeData(treeData.filter((item) => item.id !== -1));
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isContentOpen]);
 
   return (
     <>
@@ -195,8 +203,8 @@ function CategorySelect({ onChange }: Props) {
                   <div>{monitorProps.item.text}</div>
                 )}
                 canDrag={() => false}
+                onDrop={() => false}
                 canDrop={() => false}
-                onDrop={handleDrop}
                 classes={{
                   root: CssStyles.treeRoot,
                   draggingSource: CssStyles.draggingSource,

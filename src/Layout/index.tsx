@@ -23,6 +23,7 @@ function Layout({ children }: PropsWithChildren) {
           style={{
             display: 'flex',
             position: 'relative',
+            backgroundColor: ColorPalette.gray['000'],
           }}
         >
           {isSearchOpen && (

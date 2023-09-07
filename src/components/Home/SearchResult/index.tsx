@@ -41,6 +41,7 @@ function SearchResult() {
     data: searchDetails,
     error,
     isLoading,
+    isValidating,
   } = useSWR<SearchResult>(
     [
       'urls/find',

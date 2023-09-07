@@ -7,7 +7,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import FavoritesPopover from '../Popover/FavoritesPopover';
-import S, { styles, selectedStyle } from './style';
+import S, { styles, selectedStyle } from './styles';
 import { NodeModel } from '@minoru/react-dnd-treeview';
 
 interface Props {

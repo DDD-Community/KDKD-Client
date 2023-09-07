@@ -1,6 +1,6 @@
 import StarIcon from '@/assets/svg/StarIcon';
 import { Label } from '@/components/common/Typography';
-import S from './style';
+import S from './styles';
 
 interface Props {
   onDeleteFavorites: () => void;

@@ -1,6 +1,6 @@
 import { Label } from '@/components/common/Typography';
 import { PropsWithChildren } from 'react';
-import S, { styles, selectedStyle } from './style';
+import S, { styles, selectedStyle } from './styles';
 
 interface Props {
   count?: number;

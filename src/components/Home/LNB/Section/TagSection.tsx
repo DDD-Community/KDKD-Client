@@ -12,29 +12,32 @@ interface Props {
 }
 
 function TagSection({ selectedItem, onItemClick }: Props) {
-  const { data }: { data: { name: string }[] } = useSWR('/tags', fetcher);
+  const { data: tagList, mutate } = useSWR<{ name: string }[]>(
+    '/tags',
+    fetcher,
+  );
 
-  if (!data) {
-    return null;
-  }
+  const handleClickTagItem = () => {};
 
   return (
     <VStack gap={8} style={{ width: '100%' }}>
       <Label className="label-12-600" style={{ color: ColorPalette.gray[500] }}>
         태그
       </Label>
-      <VStack style={{ width: '100%' }}>
-        {data.map(({ name }) => (
-          <TagItem
-            key={name}
-            onClick={() => onItemClick(`Tag/${name}`)}
-            isSelected={selectedItem === `Tag/${name}`}
-          >
-            <TagIcon />
-            <Label className="label-14-400">{name}</Label>
-          </TagItem>
-        ))}
-      </VStack>
+      {tagList && (
+        <VStack style={{ width: '100%' }}>
+          {tagList.map(({ name }) => (
+            <TagItem
+              key={name}
+              onClick={() => onItemClick(`Tag/${name}`)}
+              isSelected={selectedItem === `Tag/${name}`}
+            >
+              <TagIcon />
+              <Label className="label-14-400">{name}</Label>
+            </TagItem>
+          ))}
+        </VStack>
+      )}
     </VStack>
   );
 }

@@ -41,9 +41,9 @@ function FavoritesItem({
         {isHovered ? (
           <Popover>
             <PopoverTrigger onClick={(e) => e.stopPropagation()}>
-              <div>
+              <S.MoreIconWrapper>
                 <MoreIcon />
-              </div>
+              </S.MoreIconWrapper>
             </PopoverTrigger>
             <PopoverContent>
               <FavoritesPopover

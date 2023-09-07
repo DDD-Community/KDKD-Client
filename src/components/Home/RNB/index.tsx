@@ -1,8 +1,7 @@
+import S from './styles';
+
 function RNB() {
-  
-return (
-  
-)
+  return <S.Container>hi</S.Container>;
 }
 
 export default RNB;

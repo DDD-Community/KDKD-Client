@@ -42,6 +42,8 @@ function GNB() {
             <SearchInput
               width={isFocus ? '1060px' : '283px'}
               style={S.SearchInputStyle}
+              onFocus={handleFocus}
+              onBlur={handleBlur}
             />
           </S.InputWrapper>
           {isFocus && <RecentlySearch />}

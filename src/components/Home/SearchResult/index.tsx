@@ -1,20 +1,12 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
+import { fetcher } from '@/api/index';
 import VStack from '@/components/common/Stack/VStack';
-import HStack from '@/components/common/Stack/HStack';
 import { Headline } from '@/components/common/Typography';
 import UrlCard from '../UrlCard';
-import { fetcher } from '@/api/index';
-import S, { styles } from './styles';
 import NoResult from './NoResult';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import ArrowDownIcon from '@/assets/svg/ArrowDownIcon';
 import SubHeader from './SubHeader';
+import S from './styles';
 
 export interface UrlInfo {
   urlId: number;

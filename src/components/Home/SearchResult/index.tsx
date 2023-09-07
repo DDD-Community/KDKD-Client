@@ -6,8 +6,15 @@ import HStack from '@/components/common/Stack/HStack';
 import { Headline } from '@/components/common/Typography';
 import UrlCard from '../UrlCard';
 import { fetcher } from '@/api/index';
-import S from './styles';
+import S, { styles } from './styles';
 import NoResult from './NoResult';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import ArrowDownIcon from '@/assets/svg/ArrowDownIcon';
+import SubHeader from './SubHeader';
 
 export interface UrlInfo {
   urlId: number;
@@ -34,11 +41,12 @@ function SearchResult() {
     data: searchDetails,
     error,
     isLoading,
+    isValidating,
   } = useSWR<SearchResult>(
     [
       'urls/find',
       // eslint-disable-next-line prettier/prettier
-      `?categoryId=${searchParams.get('categoryId') ?? ''}&urlKeyword=${searchParams.get('urlKeyword') ?? ''}&order=${searchParams.get('order') ?? ''}&pageNo=${searchParams.get('pageNo') ?? ''}&pageSize=${searchParams.get('pageSize') ?? ''}`,
+      `?categoryId=${searchParams.get('categoryId') ?? ''}&urlKeyword=${searchParams.get('urlKeyword') ?? ''}&order=${searchParams.get('order') ?? 'desc'}&pageNo=${searchParams.get('pageNo') ?? ''}&pageSize=${searchParams.get('pageSize') ?? 25}`,
     ],
     ([url, params]: string[]) => fetcher(url, params),
   );
@@ -54,10 +62,7 @@ function SearchResult() {
             </Headline>
           </S.Header>
           <VStack gap={18}>
-            <HStack justifyContent="space-between">
-              <span>최신순 오래된순</span>
-              <span>25개씩 보기</span>
-            </HStack>
+            <SubHeader />
             <VStack gap={12}>
               {searchDetails?.url.map((urlInfo) => (
                 <UrlCard urlInfo={urlInfo} key={urlInfo.urlId} />

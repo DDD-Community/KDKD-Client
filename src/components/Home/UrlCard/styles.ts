@@ -57,6 +57,12 @@ const HoveredIcon = styled.div`
   }
 `;
 
+const Link = styled.a`
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const DescriptionSection = styled.div`
   display: flex;
   align-items: center;
@@ -88,6 +94,7 @@ export default {
   Divider,
   HoveredIconContainer,
   HoveredIcon,
+  Link,
   DescriptionSection,
   Tag,
 };

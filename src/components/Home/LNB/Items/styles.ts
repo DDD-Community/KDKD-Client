@@ -25,8 +25,16 @@ export const styles = {
     cursor: 'pointer',
 
     '&:hover': {
-      ...selectedStyle,
+      backgroundColor: ColorPalette.gray[100],
+      span: {
+        fontWeight: '600',
+        lineHeight: '20px',
+      },
+      'path:not([fill="white"])': {
+        fill: ColorPalette.gray[500],
+      },
     },
+    '&:active': { ...selectedStyle },
   },
 };
 
@@ -37,12 +45,25 @@ const LeftSection = styled.div`
 `;
 
 const RightSection = styled.div`
+  display: flex;
+  align-items: center;
   span {
     color: ${ColorPalette.gray[500]};
+  }
+`;
+
+const MoreIconWrapper = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+
+  &:hover {
+    background-color: ${ColorPalette.alpha['01-08']};
   }
 `;
 
 export default {
   LeftSection,
   RightSection,
+  MoreIconWrapper,
 };

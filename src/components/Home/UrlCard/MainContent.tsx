@@ -16,7 +16,10 @@ function MainContent({ urlInfo }: Props) {
         <Title>{urlInfo.name}</Title>
         <HStack gap={8} alignItems="center">
           <Label style={{ color: ColorPalette.gray[400] }}>
-            {urlInfo.category.fullName} | {urlInfo.urlAddress}
+            {urlInfo.category.fullName} |{' '}
+            <S.Link href={urlInfo.urlAddress} target="blank">
+              {urlInfo.urlAddress}
+            </S.Link>
           </Label>
         </HStack>
       </VStack>

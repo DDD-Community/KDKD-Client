@@ -1,6 +1,7 @@
 import GNB from '@/components/Home/GNB';
 import LNB from '@/components/Home/LNB';
 import Main from '@/components/Home/Main';
+import RNB from '@/components/Home/RNB';
 import { ColorPalette } from '@/styles/ColorPalette';
 import { PropsWithChildren } from 'react';
 import LayoutController, { LayoutContext } from '@/Layout/Controller';
@@ -23,6 +24,9 @@ function Layout({ children }: PropsWithChildren) {
           style={{
             display: 'flex',
             position: 'relative',
+            padding: '0 80px',
+            backgroundColor: ColorPalette.gray['000'],
+            width: '100vw',
           }}
         >
           {isSearchOpen && (
@@ -40,6 +44,7 @@ function Layout({ children }: PropsWithChildren) {
           )}
           <LNB />
           <Main>{children}</Main>
+          <RNB />
         </main>
       </div>
     </LayoutContext.Provider>

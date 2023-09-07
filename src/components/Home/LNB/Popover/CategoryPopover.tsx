@@ -3,7 +3,7 @@ import MemoIcon from '@/assets/svg/MemoIcon';
 import StarIcon from '@/assets/svg/StarIcon';
 import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
-import S from './style';
+import S from './styles';
 
 interface Props {
   onAddFavorites: () => void;

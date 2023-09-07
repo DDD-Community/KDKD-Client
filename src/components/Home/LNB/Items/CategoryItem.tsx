@@ -5,7 +5,7 @@ import FilledCategoryIcon from '@/assets/svg/FilledCategoryIcon';
 import { Input } from '@/components/ui/input';
 import Done from '@/assets/svg/Done';
 import { Label } from '@/components/common/Typography';
-import S, { styles as BaseStyles, selectedStyle } from './style';
+import S, { styles as BaseStyles, selectedStyle } from './styles';
 import {
   Popover,
   PopoverContent,
@@ -158,9 +158,9 @@ function CategoryItem({
         {isHovered && (
           <Popover>
             <PopoverTrigger onClick={(e) => e.stopPropagation()}>
-              <div>
+              <S.MoreIconWrapper>
                 <MoreIcon />
-              </div>
+              </S.MoreIconWrapper>
             </PopoverTrigger>
             <PopoverContent>
               <CategoryPopover

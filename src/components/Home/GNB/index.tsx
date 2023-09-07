@@ -6,6 +6,7 @@ import RecentlySearch from '@/components/Home/GNB/RecentlySearch';
 import { LayoutContext } from '@/Layout/Controller';
 import { Button } from '@/components/ui/button';
 import PersonIcon from '@/assets/svg/Person';
+import Logo from '@/assets/svg/Logo';
 
 function GNB() {
   const [isFocus, setIsFocus] = useState(false);
@@ -25,7 +26,7 @@ function GNB() {
   return (
     <>
       <S.GNBWrapper>
-        <span>대충 로고</span>
+        <Logo />
         <div
           onFocus={handleFocus}
           onBlur={handleBlur}

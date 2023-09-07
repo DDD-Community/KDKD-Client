@@ -14,6 +14,8 @@ import { Label } from '@/components/common/Typography';
 import { Button } from '@/components/ui/button';
 import CategorySelect from '@/components/common/CategorySelect/CategorySelect';
 import { UrlDetailResponse } from '@/components/Extension/Save/types';
+import { Toaster } from '@/components/ui/toaster';
+import { useToast } from '@/components/ui/use-toast';
 
 interface IFormInputs {
   urlTitle: string;
@@ -73,6 +75,8 @@ function Save() {
     ([url, params]) => fetcher(url, params),
   );
 
+  const { toast } = useToast();
+
   const defaultValues: IFormInputs = {
     urlTitle: '',
     category: null,
@@ -122,7 +126,12 @@ function Save() {
         isWatchedLater: data.isWatchedLater,
         thumbnail: '',
       });
-      window.close();
+      toast({
+        description: 'URL이 저장되었습니다.',
+      });
+      setTimeout(() => {
+        window.close();
+      }, 500);
     } catch (error) {
       console.error(error);
     }
@@ -212,6 +221,7 @@ function Save() {
           </Button>
         </footer>
       </div>
+      <Toaster />
     </form>
   );
 }

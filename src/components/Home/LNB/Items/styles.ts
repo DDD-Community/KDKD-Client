@@ -11,6 +11,12 @@ export const selectedStyle = {
   'path:not([fill="white"])': {
     fill: ColorPalette.primary,
   },
+  '&:hover': {
+    color: ColorPalette.primary,
+    'path:not([fill="white"])': {
+      fill: ColorPalette.primary,
+    },
+  },
 };
 
 export const styles = {
@@ -26,6 +32,7 @@ export const styles = {
 
     '&:hover': {
       backgroundColor: ColorPalette.gray[100],
+      color: ColorPalette.gray[900],
       span: {
         fontWeight: '600',
         lineHeight: '20px',

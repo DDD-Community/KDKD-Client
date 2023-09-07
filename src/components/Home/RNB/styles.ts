@@ -9,7 +9,7 @@ const Container = styled.div`
 `;
 
 const Header = styled.div`
-  padding: 12px 8px;
+  padding: 0 8px;
 `;
 
 const Count = styled.span`

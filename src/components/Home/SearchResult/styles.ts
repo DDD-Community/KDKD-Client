@@ -12,7 +12,7 @@ const Container = styled.div`
 const Header = styled.div`
   display: flex;
   gap: 8px;
-  padding: 16px 0;
+  padding: 18px 0;
 
   & > span:last-of-type {
     color: ${ColorPalette.gray[600]};

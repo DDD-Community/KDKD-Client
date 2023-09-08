@@ -28,8 +28,7 @@ function SearchInput({ width, style, onFocus, onBlur }: Props) {
   const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
     if (e.key === 'Enter' && inputValue.trim().length > 0) {
       if (e.nativeEvent.isComposing) return;
-      searchParams.set('urlKeyword', inputValue);
-      setSearchParams(searchParams);
+      setSearchParams(`urlKeyword=${inputValue}`);
       handleInputBlur();
     } else if (e.key === 'Escape') {
       handleInputBlur();

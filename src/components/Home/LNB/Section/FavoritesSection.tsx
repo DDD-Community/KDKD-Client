@@ -27,8 +27,7 @@ function FavoritesSection({ selectedItem, onItemClick }: Props) {
   >('/categories/bookmark', fetcher);
 
   const handleSelect = (id: number) => {
-    searchParams.set('categoryId', id.toString());
-    setSearchParams(searchParams);
+    setSearchParams(`categoryId=${id.toString()}`);
   };
 
   const handleDeleteFavorite = async (id: NodeModel['id']) => {

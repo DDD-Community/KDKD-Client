@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   flex: 1;
   max-width: 320px;
-  background-color: ${ColorPalette.white};
   padding: 18px 0;
 `;
 

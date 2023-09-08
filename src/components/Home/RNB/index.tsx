@@ -3,7 +3,9 @@ import S from './styles';
 import HStack from '@/components/common/Stack/HStack';
 import useSWR from 'swr';
 import { fetcher } from '@/api';
-import { SearchResult } from '../SearchResult';
+import { SearchResult, UrlInfo } from '../SearchResult';
+import VStack from '@/components/common/Stack/VStack';
+import LaterUrlCard from './LaterUrlCard';
 
 function RNB() {
   const { data, isLoading } = useSWR<SearchResult>(
@@ -14,14 +16,31 @@ function RNB() {
     ([url, params]: string[]) => fetcher(url, params),
   );
 
+  const temp: UrlInfo = {
+    urlId: 17,
+    urlAddress: 'https://www.youtube.com/',
+    name: '유튜브유튜브유튜브유튜브유튜브유튜브유튜브유튜브유튜브유튜브유튜브',
+    thumbnail: '',
+    category: {
+      categoryId: 57,
+      fullName: '장소',
+    },
+    tag: ['구글', '태그'],
+    memo: '메모',
+  };
+
   return (
     <S.Container>
       <S.Header>
         <HStack gap={8}>
           <Headline className="headline-24-600">나중에 볼 url</Headline>
-          <S.Count>{data?.totalCount}</S.Count>
+          {data && <S.Count>{data?.totalCount}</S.Count>}
         </HStack>
       </S.Header>
+
+      <VStack gap={12}>
+        {data ? <LaterUrlCard urlInfo={temp} /> : <div />}
+      </VStack>
     </S.Container>
   );
 }

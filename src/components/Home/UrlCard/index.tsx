@@ -4,12 +4,10 @@ import S, { styles } from './styles';
 import VStack from '@/components/common/Stack/VStack';
 import { Label } from '@/components/common/Typography';
 import MainContent from './MainContent';
-import { useEffect, useState } from 'react';
-import BinIcon from '@/assets/svg/BinIcon';
-import ShareIcon from '@/assets/svg/ShareIcon';
+import { useState } from 'react';
 import MemoIcon from '@/assets/svg/MemoIcon';
-import { useSearchParams } from 'react-router-dom';
 import Highlighter from 'react-highlight-words';
+import useUrlSearchParams from '@/hooks/useUrlSearchParams';
 
 interface Props {
   urlInfo: UrlInfo;
@@ -17,13 +15,7 @@ interface Props {
 
 function UrlCard({ urlInfo }: Props) {
   const [isHovered, setIsHovered] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const [urlKeyword, setUrlKeyword] = useState('');
-
-  useEffect(() => {
-    setUrlKeyword(searchParams.get('urlKeyword') ?? '');
-  }, [searchParams]);
+  const { urlKeyword } = useUrlSearchParams();
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -52,7 +44,7 @@ function UrlCard({ urlInfo }: Props) {
           <VStack gap={4}>
             <S.DescriptionSection>
               <MemoIcon />
-              {searchParams.get('urlKeyword') ? (
+              {urlKeyword ? (
                 <Label>
                   <Highlighter
                     highlightStyle={{ ...styles.highlightStyle }}

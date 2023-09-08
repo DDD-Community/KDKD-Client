@@ -8,12 +8,13 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import ArrowDownIcon from '@/assets/svg/ArrowDownIcon';
+import useUrlSearchParams from '@/hooks/useUrlSearchParams';
 
 function SubHeader() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { order, pageSize } = useUrlSearchParams();
 
   const toggleOrder = (newOrder: 'asc' | 'desc') => {
-    const order = searchParams.get('order') ?? 'desc';
     if (order === newOrder) return;
 
     searchParams.set('order', newOrder);
@@ -21,8 +22,7 @@ function SubHeader() {
   };
 
   const changePageSize = (newPageSize: number) => {
-    const pageSize = searchParams.get('pageSize') ?? 25;
-    if (pageSize === newPageSize) return;
+    if (pageSize === newPageSize.toString()) return;
 
     searchParams.set('pageSize', newPageSize.toString());
     setSearchParams(searchParams);
@@ -38,9 +38,7 @@ function SubHeader() {
         <S.OrderToggleItem
           onClick={() => toggleOrder('desc')}
           style={{
-            ...(searchParams.get('order') !== 'asc'
-              ? styles.orderToggleSelected
-              : {}),
+            ...(order !== 'asc' ? styles.orderToggleSelected : {}),
           }}
         >
           최신순
@@ -48,9 +46,7 @@ function SubHeader() {
         <S.OrderToggleItem
           onClick={() => toggleOrder('asc')}
           style={{
-            ...(searchParams.get('order') === 'asc'
-              ? styles.orderToggleSelected
-              : {}),
+            ...(order === 'asc' ? styles.orderToggleSelected : {}),
           }}
         >
           오래된순
@@ -60,7 +56,7 @@ function SubHeader() {
         <Popover>
           <PopoverTrigger>
             <HStack alignItems="center" gap={2}>
-              {searchParams.get('pageSize') ?? 25}개씩 보기 <ArrowDownIcon />
+              {pageSize ?? 25}개씩 보기 <ArrowDownIcon />
             </HStack>
           </PopoverTrigger>
           <PopoverContent>

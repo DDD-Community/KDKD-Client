@@ -7,6 +7,8 @@ import UrlCard from '../UrlCard';
 import NoResult from './NoResult';
 import SubHeader from './SubHeader';
 import S from './styles';
+import { useEffect, useState } from 'react';
+import useUrlSearchParams from '@/hooks/useUrlSearchParams';
 
 export interface UrlInfo {
   urlId: number;
@@ -27,7 +29,8 @@ export interface SearchResult {
 }
 
 function SearchResult() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { categoryId, urlKeyword, order, pageNo, pageSize } =
+    useUrlSearchParams();
 
   const {
     data: searchDetails,
@@ -38,7 +41,7 @@ function SearchResult() {
     [
       'urls/find',
       // eslint-disable-next-line prettier/prettier
-      `?categoryId=${searchParams.get('categoryId') ?? ''}&urlKeyword=${searchParams.get('urlKeyword') ?? ''}&order=${searchParams.get('order') ?? 'desc'}&pageNo=${searchParams.get('pageNo') ?? ''}&pageSize=${searchParams.get('pageSize') ?? 25}`,
+      `?categoryId=${categoryId}&urlKeyword=${urlKeyword}&order=${order}&pageNo=${pageNo}&pageSize=${pageSize}`,
     ],
     ([url, params]: string[]) => fetcher(url, params),
   );

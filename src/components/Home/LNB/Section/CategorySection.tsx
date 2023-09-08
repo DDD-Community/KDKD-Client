@@ -51,8 +51,7 @@ function CategorySection({ selectedItem, onItemClick }: Props) {
 
   const handleSelect = (id: number) => {
     onItemClick(`Category/${id}`);
-    searchParams.set('categoryId', id.toString());
-    setSearchParams(searchParams);
+    setSearchParams(`categoryId=${id.toString()}`);
   };
 
   const handleAddFavorites = async (id: NodeModel<CustomData>['id']) => {

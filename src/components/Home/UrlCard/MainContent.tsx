@@ -3,17 +3,29 @@ import VStack from '@/components/common/Stack/VStack';
 import { Label, Title } from '@/components/common/Typography';
 import { UrlInfo } from '../SearchResult';
 import { ColorPalette } from '@/styles/ColorPalette';
-import S from './styles';
+import S, { styles } from './styles';
+import Highlighter from 'react-highlight-words';
 
 interface Props {
   urlInfo: UrlInfo;
+  keyword: string | null;
 }
 
-function MainContent({ urlInfo }: Props) {
+function MainContent({ urlInfo, keyword }: Props) {
   return (
     <VStack gap={8}>
       <VStack>
-        <Title>{urlInfo.name}</Title>
+        {keyword ? (
+          <Title>
+            <Highlighter
+              highlightStyle={{ ...styles.highlightStyle }}
+              searchWords={[keyword]}
+              textToHighlight={urlInfo.name}
+            />
+          </Title>
+        ) : (
+          <Title>{urlInfo.name}</Title>
+        )}
         <HStack gap={8} alignItems="center">
           <Label style={{ color: ColorPalette.gray[400] }}>
             {urlInfo.category.fullName} |{' '}
@@ -28,7 +40,17 @@ function MainContent({ urlInfo }: Props) {
           urlInfo.tag.map((tag, idx) => (
             <S.Tag key={idx}>
               <span style={{ color: ColorPalette.blue[200] }}># </span>
-              <Label className="label-14-400">{tag}</Label>
+              {keyword ? (
+                <Label className="label-14-400">
+                  <Highlighter
+                    highlightStyle={{ ...styles.highlightStyle }}
+                    searchWords={[keyword]}
+                    textToHighlight={tag}
+                  />
+                </Label>
+              ) : (
+                <Label className="label-14-400">{tag}</Label>
+              )}
             </S.Tag>
           ))}
       </HStack>

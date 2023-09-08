@@ -3,9 +3,24 @@ import VStack from '@/components/common/Stack/VStack';
 import HStack from '@/components/common/Stack/HStack';
 import { Label } from '@/components/common/Typography';
 import { ColorPalette } from '@/styles/ColorPalette';
+import { useSearchParams } from 'react-router-dom';
 
-function RecentlySearch() {
-  // TODO: 검색 API 연동 필요
+interface Props {
+  onBlur?: () => void;
+}
+
+function RecentlySearch({ onBlur }: Props) {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleClickKeyword = (keyword: string) => {
+    setSearchParams(`keywordRange=tag&urlKeyword=${keyword}`);
+    onBlur?.();
+  };
+
+  const handleClickTag = (tagName: string) => {
+    setSearchParams(`keywordRange=tag&urlKeyword=${tagName}`);
+    onBlur?.();
+  };
 
   return (
     <S.RecentlySearchWrapper>
@@ -17,10 +32,27 @@ function RecentlySearch() {
           최근
         </Label>
         <HStack alignItems="center" gap={16}>
-          {/* TODO: 검색 대상이 제목일 경우 검색어 컴포넌트, 태그일 경우 태그 컴포넌트 구현 필요 */}
-          <span>대충 검색어</span>
-          <span>대충 검색어</span>
-          <span>대충 검색어</span>
+          <S.Keyword onClick={() => handleClickKeyword('유튜브')}>
+            <Label className="label-14-400">유튜브</Label>
+          </S.Keyword>
+          <S.Tag onClick={() => handleClickTag('경이로운소문')}>
+            <HStack gap={2}>
+              <S.TagHash>#</S.TagHash>
+              <Label className="label-14-400">경이로운소문</Label>
+            </HStack>
+          </S.Tag>
+          <S.Tag>
+            <HStack gap={2}>
+              <S.TagHash>#</S.TagHash>
+              <Label className="label-14-400">태그 2</Label>
+            </HStack>
+          </S.Tag>
+          <S.Tag>
+            <HStack gap={2}>
+              <S.TagHash>#</S.TagHash>
+              <Label className="label-14-400">태그 3</Label>
+            </HStack>
+          </S.Tag>
         </HStack>
       </VStack>
     </S.RecentlySearchWrapper>

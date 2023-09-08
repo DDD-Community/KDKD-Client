@@ -1,20 +1,14 @@
-import { useEffect, useState } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import useSWR from 'swr';
+import { fetcher } from '@/api/index';
 import VStack from '@/components/common/Stack/VStack';
-import HStack from '@/components/common/Stack/HStack';
 import { Headline } from '@/components/common/Typography';
 import UrlCard from '../UrlCard';
-import { fetcher } from '@/api/index';
-import S, { styles } from './styles';
 import NoResult from './NoResult';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import ArrowDownIcon from '@/assets/svg/ArrowDownIcon';
 import SubHeader from './SubHeader';
+import S from './styles';
+import { useEffect, useState } from 'react';
+import useUrlSearchParams from '@/hooks/useUrlSearchParams';
 
 export interface UrlInfo {
   urlId: number;
@@ -35,7 +29,8 @@ export interface SearchResult {
 }
 
 function SearchResult() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const { categoryId, urlKeyword, keywordRange, order, pageNo, pageSize } =
+    useUrlSearchParams();
 
   const {
     data: searchDetails,
@@ -46,7 +41,7 @@ function SearchResult() {
     [
       'urls/find',
       // eslint-disable-next-line prettier/prettier
-      `?categoryId=${searchParams.get('categoryId') ?? ''}&urlKeyword=${searchParams.get('urlKeyword') ?? ''}&order=${searchParams.get('order') ?? 'desc'}&pageNo=${searchParams.get('pageNo') ?? ''}&pageSize=${searchParams.get('pageSize') ?? 25}`,
+      `?categoryId=${categoryId}&urlKeyword=${urlKeyword}&keywordRange=${keywordRange}&order=${order}&pageNo=${pageNo}&pageSize=${pageSize}`,
     ],
     ([url, params]: string[]) => fetcher(url, params),
   );
@@ -56,7 +51,7 @@ function SearchResult() {
       {searchDetails && (
         <>
           <S.Header>
-            <Headline className="headline-24-600">제목제목</Headline>
+            <Headline className="headline-24-600">검색 결과</Headline>
             <Headline className="headline-24-600">
               {searchDetails?.totalCount}
             </Headline>

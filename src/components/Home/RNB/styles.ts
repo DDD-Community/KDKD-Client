@@ -4,11 +4,11 @@ import styled from '@emotion/styled';
 const Container = styled.div`
   flex: 1;
   max-width: 320px;
-  padding: 18px 0;
 `;
 
 const Header = styled.div`
-  padding: 0 8px;
+  margin-bottom: 8px;
+  padding: 18px 8px;
 `;
 
 const Count = styled.span`

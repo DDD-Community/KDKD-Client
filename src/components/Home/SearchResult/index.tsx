@@ -56,7 +56,7 @@ function SearchResult() {
               {searchDetails?.totalCount}
             </Headline>
           </S.Header>
-          <VStack gap={18}>
+          <VStack gap={12}>
             <SubHeader />
             <VStack gap={12}>
               {searchDetails?.url.map((urlInfo) => (

@@ -6,6 +6,7 @@ import { fetcher } from '@/api';
 import { SearchResult, UrlInfo } from '../SearchResult';
 import VStack from '@/components/common/Stack/VStack';
 import LaterUrlCard from './LaterUrlCard';
+import Pagination from './Pagination';
 
 function RNB() {
   const { data, isLoading } = useSWR<SearchResult>(
@@ -37,8 +38,8 @@ function RNB() {
           {data && <S.Count>{data?.totalCount}</S.Count>}
         </HStack>
       </S.Header>
-
       <VStack gap={12}>
+        <Pagination />
         {data ? <LaterUrlCard urlInfo={temp} /> : <div />}
       </VStack>
     </S.Container>

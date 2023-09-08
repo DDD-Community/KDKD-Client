@@ -46,7 +46,7 @@ function GNB() {
               onBlur={handleBlur}
             />
           </S.InputWrapper>
-          {isFocus && <RecentlySearch />}
+          {isFocus && <RecentlySearch onBlur={handleBlur} />}
         </div>
         <HStack gap={16} style={{ width: 'auto' }}>
           <Button size="sm" variant="ghost">

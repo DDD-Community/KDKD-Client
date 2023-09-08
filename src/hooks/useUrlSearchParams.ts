@@ -6,6 +6,7 @@ export default function useUrlSearchParams() {
 
   const [categoryId, setCategoryId] = useState('');
   const [urlKeyword, setUrlKeyword] = useState('');
+  const [keywordRange, setKeywordRange] = useState('');
   const [order, setOrder] = useState('');
   const [pageNo, setPageNo] = useState('');
   const [pageSize, setPageSize] = useState('');
@@ -13,6 +14,7 @@ export default function useUrlSearchParams() {
   useEffect(() => {
     setCategoryId(searchParams.get('categoryId') ?? '');
     setUrlKeyword(searchParams.get('urlKeyword') ?? '');
+    setKeywordRange(searchParams.get('keywordRange') ?? '');
     setOrder(searchParams.get('order') ?? 'desc');
     setPageNo(searchParams.get('pageNo') ?? '');
     setPageSize(searchParams.get('pageSize') ?? '25');
@@ -21,6 +23,7 @@ export default function useUrlSearchParams() {
   return {
     categoryId,
     urlKeyword,
+    keywordRange,
     order,
     pageNo,
     pageSize,

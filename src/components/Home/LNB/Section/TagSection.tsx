@@ -5,6 +5,7 @@ import VStack from '@/components/common/Stack/VStack';
 import { ColorPalette } from '@/styles/ColorPalette';
 import useSWR from 'swr';
 import { fetcher } from '@/api';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
   selectedItem: string | null;
@@ -12,12 +13,16 @@ interface Props {
 }
 
 function TagSection({ selectedItem, onItemClick }: Props) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const { data: tagList, mutate } = useSWR<{ name: string }[]>(
     '/tags',
     fetcher,
   );
 
-  const handleClickTagItem = () => {};
+  const handleClickTagItem = (name: string) => {
+    onItemClick(`Tag/${name}`);
+    setSearchParams(`keywordRange=tag&urlKeyword=${name}`);
+  };
 
   return (
     <VStack gap={8} style={{ width: '100%' }}>
@@ -29,7 +34,7 @@ function TagSection({ selectedItem, onItemClick }: Props) {
           {tagList.map(({ name }) => (
             <TagItem
               key={name}
-              onClick={() => onItemClick(`Tag/${name}`)}
+              onClick={() => handleClickTagItem(name)}
               isSelected={selectedItem === `Tag/${name}`}
             >
               <TagIcon />

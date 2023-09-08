@@ -29,7 +29,7 @@ export interface SearchResult {
 }
 
 function SearchResult() {
-  const { categoryId, urlKeyword, order, pageNo, pageSize } =
+  const { categoryId, urlKeyword, keywordRange, order, pageNo, pageSize } =
     useUrlSearchParams();
 
   const {
@@ -41,7 +41,7 @@ function SearchResult() {
     [
       'urls/find',
       // eslint-disable-next-line prettier/prettier
-      `?categoryId=${categoryId}&urlKeyword=${urlKeyword}&order=${order}&pageNo=${pageNo}&pageSize=${pageSize}`,
+      `?categoryId=${categoryId}&urlKeyword=${urlKeyword}&keywordRange=${keywordRange}&order=${order}&pageNo=${pageNo}&pageSize=${pageSize}`,
     ],
     ([url, params]: string[]) => fetcher(url, params),
   );

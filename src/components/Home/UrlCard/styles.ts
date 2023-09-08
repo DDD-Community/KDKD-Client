@@ -1,5 +1,6 @@
 import { ColorPalette } from '@/styles/ColorPalette';
 import styled from '@emotion/styled';
+import React from 'react';
 
 const Container = styled.div`
   position: relative;
@@ -87,6 +88,13 @@ const Tag = styled.span`
   border: 1px solid ${ColorPalette.gray[300]};
   border-radius: 4px;
 `;
+
+export const styles = {
+  highlightStyle: {
+    color: ColorPalette.blue[500],
+    backgroundColor: 'transparent',
+  },
+};
 
 export default {
   Container,

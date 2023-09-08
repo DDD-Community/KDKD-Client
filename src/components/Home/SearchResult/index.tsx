@@ -48,7 +48,7 @@ function SearchResult() {
       {searchDetails && (
         <>
           <S.Header>
-            <Headline className="headline-24-600">제목제목</Headline>
+            <Headline className="headline-24-600">검색 결과</Headline>
             <Headline className="headline-24-600">
               {searchDetails?.totalCount}
             </Headline>
